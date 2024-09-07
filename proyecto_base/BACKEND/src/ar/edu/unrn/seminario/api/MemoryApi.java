@@ -50,8 +50,14 @@ public class MemoryApi implements IApi {
 
 	@Override
 	public UsuarioDTO obtenerUsuario(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		UsuarioDTO miUsuario= null;
+		for (Usuario u: usuarios) {
+			if (username.equals(u.getNombre())) {
+				miUsuario= new UsuarioDTO(u.getUsuario(), u.getContrasena(), u.getNombre(), u.getEmail(),
+						u.getRol().getNombre(), u.isActivo(), u.obtenerEstado());
+			}
+		}
+		return miUsuario;
 	}
 
 	@Override
