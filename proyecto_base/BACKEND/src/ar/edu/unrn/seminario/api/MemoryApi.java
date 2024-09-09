@@ -87,15 +87,20 @@ public class MemoryApi implements IApi {
 
 	@Override
 	public void guardarRol(Integer codigo, String descripcion, boolean estado) {
-		// TODO Auto-generated method stub
+		
 		Rol rol = new Rol(codigo, descripcion);
 		this.roles.add(rol);
 	}
 
 	@Override
 	public RolDTO obtenerRolPorCodigo(Integer codigo) {
-		// TODO Auto-generated method stub
-		return null;
+		RolDTO rol = null;
+		for (Rol r: this.roles) {
+			if (r.getCodigo().equals(codigo)) {
+				rol= new RolDTO (r.getCodigo(), r.getNombre(), r.isActivo());
+			}
+		}
+		return rol;
 	}
 
 	@Override
