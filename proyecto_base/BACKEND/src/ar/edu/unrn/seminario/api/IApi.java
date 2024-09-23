@@ -5,13 +5,14 @@ import java.util.List;
 import ar.edu.unrn.seminario.dto.RolDTO;
 import ar.edu.unrn.seminario.dto.UsuarioDTO;
 
+//Esto es la fachada
 public interface IApi {
 
 	void registrarUsuario(String username, String password, String email, String nombre, Integer rol);
 
-	UsuarioDTO obtenerUsuario(String username);
+	UsuarioDTO obtenerUsuario(String username); //Transformar el dato que obtengo del usuario a un DTO. Cómo dato plano.
 
-	void eliminarUsuario(String username);
+	void eliminarUsuario(String username); 
 
 	List<RolDTO> obtenerRoles();
 
