@@ -8,6 +8,7 @@ import ar.edu.unrn.seminario.dto.UsuarioDTO;
 import ar.edu.unrn.seminario.modelo.Rol;
 import ar.edu.unrn.seminario.modelo.Usuario;
 
+//Implementa la fachada, se llama memory api porque almaceno en array list, viven en la memoria.
 public class MemoryApi implements IApi {
 
 	// Es una buena práctica declararlo tipo List por si lo cambiamos el día de mañana
@@ -16,13 +17,15 @@ public class MemoryApi implements IApi {
 
 	public MemoryApi() {
 
-		// datos iniciales
+		// Inicializa valores, acá los roles, puede no hacer nada
+		//Simula tener los roles precargados
 		this.roles.add(new Rol(1, "ADMIN"));
 		this.roles.add(new Rol(2, "ESTUDIANTE"));
 		this.roles.add(new Rol(3, "INVITADO"));
 		inicializarUsuarios();
 	}
-
+	
+	// Inicializa usuarios
 	private void inicializarUsuarios() {
 		registrarUsuario("admin", "1234", "admin@unrn.edu.ar", "Admin", 1);
 		registrarUsuario("ldifabio", "4", "ldifabio@unrn.edu.ar", "Lucas", 2);
@@ -30,6 +33,9 @@ public class MemoryApi implements IApi {
 
 	}
 
+		// Sobreescribe registrar usuario de la API, porque la estoy implementado.
+	//le doy comportamiento.
+	//Creamos un usuario lo cargamos a la lista.
 	@Override
 	public void registrarUsuario(String username, String password, String email, String nombre, Integer rol) {
 
