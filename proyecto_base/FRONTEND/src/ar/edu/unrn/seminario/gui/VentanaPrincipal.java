@@ -17,6 +17,7 @@ import ar.edu.unrn.seminario.api.MemoryApi;
 
 public class VentanaPrincipal extends JFrame {
 
+	//Todas las clases reciben la api. 
 	private JPanel contentPane;
 
 	/**
