@@ -1,7 +1,7 @@
 package ar.edu.unrn.seminario.modelo;
 
 public class Rol {
-	private Integer codig;
+	private Integer codigo;
 	private String nombre;
 	private boolean activo;
 
