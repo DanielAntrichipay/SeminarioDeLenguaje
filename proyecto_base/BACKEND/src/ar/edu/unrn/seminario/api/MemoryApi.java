@@ -11,7 +11,7 @@ import ar.edu.unrn.seminario.modelo.Usuario;
 //Implementa la fachada, se llama memory api porque almaceno en array list, viven en la memoria.
 public class MemoryApi implements IApi {
 
-	// Es una buena práctica declararlo tipo List por si lo cambiamos el día de mañana
+	
 	private List<Rol> roles = new ArrayList();
 	private List<Usuario> usuarios = new ArrayList<>();
 
