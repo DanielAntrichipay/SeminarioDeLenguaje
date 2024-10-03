@@ -31,4 +31,25 @@ public interface IApi {
 	void activarUsuario(String username); // recuperar el objeto Usuario, implementar el comportamiento de estado.
 
 	void desactivarUsuario(String username); // recuperar el objeto Usuario, implementar el comportamiento de estado.
+	
+	//--- LOGICA DE EDIFICIO.
+	
+	void cargarEdificio (String nombreEdificio);
+	
+	void bajaDeEdificio (String nombreEdificio);
+	
+	void actualizarEdificio (String nombreEdificio, String nuevoNombreEdificio);
+	
+	//--- lOGICA DE AULA.
+	
+	void cargarAula (String descripcionDeRecurso, String nombreEdificio, int numeroDeAula, int capacidadDeAula);
+	
+	void bajaDeAula (String nombreEdificio, int NumeroDeAula);
+	
+	void actualizarAula (String nombreEdificio, int NumeroDeAula, String nuevaDescripcionDeRecurso, int nuevoNumeroDeAula);
+	
+	void actualizarAula (String nombreEdificio, int NumeroDeAula, String nuevaDescripcionDeRecurso);
+	
+	void actualizarAula (String nombreEdificio, int NumeroDeAula, int nueevoNumeroDeAula);
+	
 }
