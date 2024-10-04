@@ -35,7 +35,7 @@ public class Aula {
 	public void agregarRecurso(String descripcion) {
 		//recorro la lista de recursos para saber si el que quiero agregar ya se encuentra o no 
 		for (Recurso recurso : listaRecursos) {
-			if (recurso.obtenerDescripcion().equals(descripcion)) {
+			if (recurso.obtenerDescripcion().equals(descripcion)) { //aca etsa bien el equal?
 				System.out.println("El recurso ingresado ya se encuentra en el aula");
 			}
 			
@@ -45,12 +45,12 @@ public class Aula {
 	}
 	
 	public void quitarRecurso(String descripcion) {
-		Recurso recursoaeliminar;
+		//Recurso recursoaeliminar; hace falta esto??
 		for (Recurso recurso : listaRecursos) {
 			if (recurso.obtenerDescripcion().equals(descripcion)) {
-				recursoaeliminar =descripcion;
-				listaRecursos.remove(recursoaeliminar);// esta parte, deveria ir afuera del for??
-	            System.out.println("Recurso eiminado ");
+				//recursoaeliminar = descripcion;
+				listaRecursos.remove(descripcion);// esta parte, deveria ir afuera del for??
+	            System.out.println("Recurso eiminado");
 	        } 
 			else {
 				System.out.println("El recurso no se encuentra en el aula.");
