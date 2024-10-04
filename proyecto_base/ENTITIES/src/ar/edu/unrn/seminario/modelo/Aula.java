@@ -45,12 +45,12 @@ public class Aula {
 	}
 	
 	public void quitarRecurso(String descripcion) {
-		Recurso recuarsoeliminar;
+		Recurso recursoaeliminar;
 		for (Recurso recurso : listaRecursos) {
 			if (recurso.obtenerDescripcion().equals(descripcion)) {
-				recursoeliminar =descripcion;
-				listaRecursos.remove(recursoAEliminar);
-	            System.out.println("Recurso quitado: ");
+				recursoaeliminar =descripcion;
+				listaRecursos.remove(recursoaeliminar);// esta parte, deveria ir afuera del for??
+	            System.out.println("Recurso eiminado ");
 	        } 
 			else {
 				System.out.println("El recurso no se encuentra en el aula.");
