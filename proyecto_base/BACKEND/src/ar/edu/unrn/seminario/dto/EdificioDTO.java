@@ -1,16 +1,16 @@
-package ar.edu.unrn.seminario.modelo;
+package ar.edu.unrn.seminario.dto;
 
 import java.util.List;
 
-public class Edificio {
+import ar.edu.unrn.seminario.modelo.Aula;
+
+public class EdificioDTO {
 	
 	/*------------------------------- ATRIBUTOS -------------------------------*/
 	
 	private String nombre; 
 	private List<Aula> listaAulas;
-	
-	
-	
+
 	/*-------------------------------- MÉTODOS --------------------------------*/
 	
 	public String getNombre() {
@@ -35,6 +35,8 @@ public class Edificio {
 		}
 		return existe;
 	}
+	
+	// Queremos que edificioDTO tenga agregar o quitar aulas?????
 	
 	public void agregarAula (Aula unAula) {		
 		if (! existeAulaEnLista(unAula)) {
@@ -61,19 +63,12 @@ public class Edificio {
 		
 		return unAula;
 	}
-	
-	
+
 	/*----------------------------- CONSTRUCTORES -----------------------------*/
-	
-	
-	public Edificio () {
-		
-	}
-	
-	public Edificio (String unNombre) {
+
+	public EdificioDTO(String unNombre) {
 		super();
-		this.nombre= unNombre;
-	
-	
-}
+		this.nombre=unNombre;
+	}
+
 }
