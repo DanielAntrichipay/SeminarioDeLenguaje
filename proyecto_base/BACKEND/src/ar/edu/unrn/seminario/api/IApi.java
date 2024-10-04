@@ -1,5 +1,6 @@
 package ar.edu.unrn.seminario.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unrn.seminario.dto.RolDTO;
@@ -42,14 +43,20 @@ public interface IApi {
 	
 	//--- lOGICA DE AULA.
 	
-	void cargarAula (String descripcionDeRecurso, String nombreEdificio, int numeroDeAula, int capacidadDeAula);
+	void cargarAula (ArrayList <String> descripcionDeRecursos,String nombreEdificio, int numeroDeAula, int capacidadDeAula);
 	
-	void bajaDeAula (String nombreEdificio, int NumeroDeAula);
+	void bajaDeAula (String nombreEdificio, int numeroDeAula);
 	
-	void actualizarAula (String nombreEdificio, int NumeroDeAula, String nuevaDescripcionDeRecurso, int nuevoNumeroDeAula);
+	void redefinirNumeroYReursosDeAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula, ArrayList<String> nuevosRecursos);
 	
-	void actualizarAula (String nombreEdificio, int NumeroDeAula, String nuevaDescripcionDeRecurso);
+	void redefinirRecursosDeAula (String nombreEdificio, int numeroDeAula, ArrayList<String> nuevosRecursos);
 	
-	void actualizarAula (String nombreEdificio, int NumeroDeAula, int nueevoNumeroDeAula);
+	void redefinirNumeroDeAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula);
+	
+	//void actualizarAula (String nombreEdificio, int numeroDeAula, String descripcionDeRecurso, String nuevaDescripcionDeRecurso, int nuevoNumeroDeAula);
+	
+	//void actualizarAula (String nombreEdificio, int numeroDeAula, String descripcionDeRecurso, String nuevaDescripcionDeRecurso);
+	
+	//void actualizarAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula);
 	
 }
