@@ -21,14 +21,46 @@ public class Edificio {
 		this.nombre = nombre;
 	} 
 	
-	public List<Aula> getListaAulas() {
+	public List<Aula> obtenerListaAulas() {
 		return listaAulas;
 	}
 	
-	public void setListaAulas(List<Aula> listaAulas) {
-		this.listaAulas = listaAulas;
+
+	public boolean existeAulaEnLista (Aula unAula) {
+		boolean existe= false;
+		for (Aula a: listaAulas) {
+			if (a.getNumeroAula()==unAula.getNumeroAula()) {
+				existe= true;
+			}
+		}
+		return existe;
 	}
 	
+	public void agregarAula (Aula unAula) {		
+		if (! existeAulaEnLista(unAula)) {
+			listaAulas.add (unAula);
+		}
+		
+	}
+	
+	public void quitarAula (Aula unAula) {
+		
+		if (existeAulaEnLista (unAula)) {
+			listaAulas.remove(unAula);
+		}
+	}
+	
+	
+	public Aula obtenerAulaEspecifica (int unNumeroAula) {
+		Aula unAula= null;
+		for (Aula a: listaAulas) {
+			if (a.getNumeroAula == unNumeroAula) {
+				unAula = a;
+			}
+		}
+		
+		return unAula;
+	}
 	
 	
 	/*----------------------------- CONSTRUCTORES -----------------------------*/
