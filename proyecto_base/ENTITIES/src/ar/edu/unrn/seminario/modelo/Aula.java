@@ -16,7 +16,7 @@ public class Aula {
 	
 	/*-------------------------------- MÉTODOS --------------------------------*/
 	
-	public String getNumeroAula() {
+	public int getNumeroAula() {
 		return numeroAula;
 	}
 	
@@ -41,7 +41,7 @@ public class Aula {
 			
 		}
 		listaRecursos.add(new Recurso(descripcion));
-		System.out.println("El recurso fue agregado con exito")
+		System.out.println("El recurso fue agregado con exito");
 	}
 	
 	public void quitarRecurso(String descripcion) {

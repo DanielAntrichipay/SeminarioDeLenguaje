@@ -47,7 +47,7 @@ public interface IApi {
 	
 	void bajaDeAula (String nombreEdificio, int numeroDeAula);
 	
-	void redefinirNumeroYReursosDeAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula, ArrayList<String> nuevosRecursos);
+	void redefinirNumeroYRecursosDeAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula, ArrayList<String> nuevosRecursos);
 	
 	void redefinirRecursosDeAula (String nombreEdificio, int numeroDeAula, ArrayList<String> nuevosRecursos);
 	

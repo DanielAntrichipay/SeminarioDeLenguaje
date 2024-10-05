@@ -199,7 +199,7 @@ public class MemoryApi implements IApi {
 		for (Edificio unEdificio : this.edificios){
 			if (unEdificio.getNombre() == nombreEdificio){
 				
-				for (Aula a : unEdificio.getListaAulas()){
+				for (Aula a : unEdificio.obtenerListaAulas()){
 					if (a.getNumeroAula() == numeroDeAula){
 						existeAula = true;
 					}
@@ -217,8 +217,8 @@ public class MemoryApi implements IApi {
 		
 		for (Edificio e : this.edificios){
 			if (e.getNombre() == nombreEdificio){
-				for (Aula unAula : e.getListaAulas()) {
-					if (unAula.getNumeroAula == numeroDeAula) {
+				for (Aula unAula : e.obtenerListaAulas()) {
+					if (unAula.getNumeroAula () == numeroDeAula) {
 						e.quitarAula (unAula);
 					}
 				}
@@ -228,11 +228,11 @@ public class MemoryApi implements IApi {
 	
 	//---------------------- Refactorizar métodos usando el método "obtenerAulaEspecifica" de la entidad edificio ------------------------------------------------------//
 	@Override
-	public void redefinirNumeroYReursosDeAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula, ArrayList<String> nuevosRecursos) {
+	public void redefinirNumeroYRecursosDeAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula, ArrayList<String> nuevosRecursos) {
 		for (Edificio e : this.edificios){
 			if (e.getNombre() == nombreEdificio){
-				for (Aula unAula : e.getListaAulas()) {
-					if (unAula.getNumeroAula == numeroDeAula) {
+				for (Aula unAula : e.obtenerListaAulas()) {
+					if (unAula.getNumeroAula () == numeroDeAula) {
 						unAula.setListaRecursos (nuevosRecursos);
 						unAula.setNumeroAula (nuevoNumero)
 					}
@@ -244,21 +244,22 @@ public class MemoryApi implements IApi {
 		
 		for (Edificio e : this.edificios){
 			if (e.getNombre() == nombreEdificio){
-				for (Aula unAula : e.getListaAulas()) {
-					if (unAula.getNumeroAula == numeroDeAula) {
+				for (Aula unAula : e.obtenerListaAulas()) {
+					if (unAula.getNumeroAula () == numeroDeAula) {
 						unAula.setListaRecursos (nuevosRecursos);
 					}
 				}
 			}
+	}
 	}
 	@Override
 	public void redefinirNumeroDeAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula) {
 		
 		for (Edificio e : this.edificios){
 			if (e.getNombre() == nombreEdificio){
-				for (Aula unAula : e.getListaAulas()) {
-					if (unAula.getNumeroAula == numeroDeAula) {
-						unAula.setNumeroAula (nuevoNumero)
+				for (Aula unAula : e.obtenerListaAulas()) {
+					if (unAula.getNumeroAula () == numeroDeAula) {
+						unAula.setNumeroAula (nuevoNumeroDeAula);
 					}
 				}
 			}
