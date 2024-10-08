@@ -10,9 +10,7 @@ public class Aula {
 	private List<Recurso> listaRecursos;
 	private Edificio edificio;
 	private int capacidad;
-	
-	
-	
+
 	
 	/*-------------------------------- MÉTODOS --------------------------------*/
 	
@@ -28,28 +26,29 @@ public class Aula {
 		return listaRecursos;
 	}
 	
-	public void setListaRecurso(List<Recurso> listaRecursos) {
+	public void setListaRecurso(List<Recurso>listaRecursos) { 
 		this.listaRecursos = listaRecursos;
+		
 	}
 	
-	public void agregarRecurso(String descripcion) {
+	public void agregarRecurso(Recurso recurso) {
 		//recorro la lista de recursos para saber si el que quiero agregar ya se encuentra o no 
 		for (Recurso recurso : listaRecursos) {
-			if (recurso.obtenerDescripcion().equals(descripcion)) { //aca etsa bien el equal?
+			if (recurso.obtenerDescripcion().equals(recurso.obtenerDescripcion())) { //aca etsa bien el equals ?
 				System.out.println("El recurso ingresado ya se encuentra en el aula");
 			}
 			
 		}
-		listaRecursos.add(new Recurso(descripcion));
+		listaRecursos.add(new Recurso(recurso));
 		System.out.println("El recurso fue agregado con exito");
 	}
 	
-	public void quitarRecurso(String descripcion) {
+	public void quitarRecurso(Recurso recurso) {
 		//Recurso recursoaeliminar; hace falta esto??
 		for (Recurso recurso : listaRecursos) {
-			if (recurso.obtenerDescripcion().equals(descripcion)) {
+			if (recurso.obtenerDescripcion().equals(recurso)) {
 				//recursoaeliminar = descripcion;
-				listaRecursos.remove(descripcion);// esta parte, deveria ir afuera del for??
+				listaRecursos.remove(recurso);// esta parte, deveria ir afuera del for??
 	            System.out.println("Recurso eiminado");
 	        } 
 			else {
@@ -61,8 +60,9 @@ public class Aula {
 	
 	/*----------------------------- CONSTRUCTORES -----------------------------*/
 	
-	public Aula (int numeroAula,Edificio edificio,int capacidad) {
+	public Aula (int numeroAula,List<Recurso> listaRecursos, Edificio edificio,int capacidad) {
 		this.numeroAula= numeroAula;
+		this.listaRecursos = listaRecursos;
 		this.edificio= edificio;
 		this.capacidad=capacidad;
 	
