@@ -56,7 +56,7 @@ public class EdificioDTO {
 	public Aula obtenerAulaEspecifica (int unNumeroAula) {
 		Aula unAula= null;
 		for (Aula a: listaAulas) {
-			if (a.getNumeroAula == unNumeroAula) {
+			if (a.getNumeroAula () == unNumeroAula) {
 				unAula = a;
 			}
 		}

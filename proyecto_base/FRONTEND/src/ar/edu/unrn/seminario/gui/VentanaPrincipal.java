@@ -48,7 +48,7 @@ public class VentanaPrincipal extends JFrame {
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-
+		
 		JMenu usuarioMenu = new JMenu("Usuarios");
 		menuBar.add(usuarioMenu);
 
@@ -75,6 +75,21 @@ public class VentanaPrincipal extends JFrame {
 			
 		});
 		usuarioMenu.add(listadoUsuarioMenuItem);
+		
+		// Agrego aula y sus opciones
+		JMenu aulaMenu = new JMenu ("Aula");
+		menuBar.add(aulaMenu);
+		
+		JMenuItem altaAulaMenuItem = new JMenuItem ("Alta/Modificación");
+		// agregar el action listener
+
+		aulaMenu.add(altaAulaMenuItem);
+		
+		JMenuItem listadoAulaMenuItem = new JMenuItem ("Listado");
+		
+		// agregar el listener
+		
+		aulaMenu.add(listadoAulaMenuItem);
 
 		JMenu configuracionMenu = new JMenu("Configuración");
 		menuBar.add(configuracionMenu);
