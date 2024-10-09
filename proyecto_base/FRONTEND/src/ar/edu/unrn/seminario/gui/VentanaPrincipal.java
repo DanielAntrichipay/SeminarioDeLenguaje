@@ -53,7 +53,7 @@ public class VentanaPrincipal extends JFrame {
 		menuBar.add(usuarioMenu);
 
 		JMenuItem altaUsuarioMenuItem = new JMenuItem("Alta/Modificación");
-		altaUsuarioMenuItem.addWindowListener(new OpcionAltaUsuario()) {
+		altaUsuarioMenuItem.addActionListener(new ActionListener () {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				AltaUsuario alta = new AltaUsuario(api);
@@ -82,6 +82,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		JMenuItem altaAulaMenuItem = new JMenuItem ("Alta/Modificación");
 		// agregar el action listener
+		
 
 		aulaMenu.add(altaAulaMenuItem);
 		
@@ -104,18 +105,7 @@ public class VentanaPrincipal extends JFrame {
 
 
 	}
-	class OpcionAltaUsuario implements ActionListener {
-		
-		
-		public void actionPerformed(ActionEvent e) {
-			AltaUsuario unaVentana = new AltaUsuario();
-			unaVentana.setVisible(true);
-		
-	}
-
 	
-		
-	}
 	}
 
 	
