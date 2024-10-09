@@ -52,30 +52,30 @@ public class AltaAula {
 		frame.getContentPane().setLayout(null);
 		
 		textField = new JTextField();
-		textField.setBounds(191, 21, 134, 19);
+		textField.setBounds(206, 63, 69, 19);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Número de aula");
-		lblNewLabel.setBounds(51, 24, 112, 13);
+		lblNewLabel.setBounds(84, 66, 112, 13);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblEdificio = new JLabel("Edificio");
-		lblEdificio.setBounds(51, 61, 112, 13);
+		lblEdificio.setBounds(84, 33, 112, 13);
 		frame.getContentPane().add(lblEdificio);
 		
 		JLabel lblCapacidad = new JLabel("Capacidad");
-		lblCapacidad.setBounds(51, 105, 112, 13);
+		lblCapacidad.setBounds(84, 99, 112, 13);
 		frame.getContentPane().add(lblCapacidad);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(191, 105, 134, 19);
+		textField_2.setBounds(206, 96, 69, 19);
 		frame.getContentPane().add(textField_2);
 		
 		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"PRINCIPAL", "kINESIOLOGÍA"}));
-		comboBox.setBounds(191, 57, 134, 21);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Principal", "Kinesiología"}));
+		comboBox.setBounds(204, 32, 134, 21);
 		frame.getContentPane().add(comboBox);
 		
 		JButton btnNewButton = new JButton("Aceptar");
@@ -83,11 +83,19 @@ public class AltaAula {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(91, 173, 85, 21);
+		btnNewButton.setBounds(111, 232, 85, 21);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(240, 173, 85, 21);
+		btnCancelar.setBounds(253, 232, 85, 21);
 		frame.getContentPane().add(btnCancelar);
+		
+		JLabel lblRecurso = new JLabel("Recurso");
+		lblRecurso.setBounds(84, 133, 112, 13);
+		frame.getContentPane().add(lblRecurso);
+		
+		JButton btnAadirRecursos = new JButton("Añadir Recursos");
+		btnAadirRecursos.setBounds(205, 129, 133, 21);
+		frame.getContentPane().add(btnAadirRecursos);
 	}
 }

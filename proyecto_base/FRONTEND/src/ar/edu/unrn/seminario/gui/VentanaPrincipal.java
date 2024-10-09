@@ -53,7 +53,7 @@ public class VentanaPrincipal extends JFrame {
 		menuBar.add(usuarioMenu);
 
 		JMenuItem altaUsuarioMenuItem = new JMenuItem("Alta/Modificación");
-		altaUsuarioMenuItem.addActionListener(new ActionListener() {
+		altaUsuarioMenuItem.addWindowListener(new OpcionAltaUsuario()) {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				AltaUsuario alta = new AltaUsuario(api);
@@ -100,6 +100,24 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+	
+
+
+	}
+	class OpcionAltaUsuario implements ActionListener {
+		
+		
+		public void actionPerformed(ActionEvent e) {
+			AltaUsuario unaVentana = new AltaUsuario();
+			unaVentana.setVisible(true);
+		
 	}
 
-}
+	
+		
+	}
+	}
+
+	
+
+
