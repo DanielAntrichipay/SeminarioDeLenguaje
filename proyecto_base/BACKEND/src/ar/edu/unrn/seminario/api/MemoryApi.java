@@ -3,10 +3,15 @@ package ar.edu.unrn.seminario.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.edu.unrn.seminario.dto.RolDTO;
-import ar.edu.unrn.seminario.dto.UsuarioDTO;
+import ar.edu.unrn.seminario.dto.*;
+
+//import ar.edu.unrn.seminario.dto.RolDTO;
+//import ar.edu.unrn.seminario.dto.UsuarioDTO;
 import ar.edu.unrn.seminario.modelo.Rol;
 import ar.edu.unrn.seminario.modelo.Usuario;
+
+import ar.edu.unrn.seminario.modelo.Edificio;
+import ar.edu.unrn.seminario.modelo.Aula;
 
 //Implementa la fachada, se llama memory api porque almaceno en array list, viven en la memoria.
 public class MemoryApi implements IApi {
@@ -14,6 +19,8 @@ public class MemoryApi implements IApi {
 	
 	private List<Rol> roles = new ArrayList();
 	private List<Usuario> usuarios = new ArrayList<>();
+	private List<Aula> aulas = new ArrayList<>();
+	private List<Edificio> edificios = new ArrayList<>();
 
 	public MemoryApi() {
 
@@ -149,4 +156,112 @@ public class MemoryApi implements IApi {
 		}
 		return null;
 	}
+	
+	//--- AMB AULA
+	@Override
+	public void cargarEdificio (String nombreEdificio){
+		
+		boolean elEdificioExiste= false;
+		
+		for (Edificio unEdificio : this.edificios){
+			if (unEdificio.getNombre() == nombreEdificio){
+				elEdificioExiste = true;
+			}
+		}
+			
+		if (!elEdificioExiste) {
+			Edificio nuevoEdificio = new Edificio (nombreEdificio);
+			this.edificios.add(nuevoEdificio);
+		}	
+	}
+	
+	@Override
+	public void bajaDeEdificio (String nombreEdificio){
+		if (!this.edificios.isEmpty()) {
+			for (Edificio unEdificio : this.edificios){
+				if (unEdificio.getNombre() == nombreEdificio){
+					this.edificios.remove(unEdificio);
+				}
+			}
+		}
+	}
+	@Override
+	public void actualizarEdificio (String nombreEdificio, String nuevoNombreEdificio){
+		for (Edificio e : this.edificios){
+			if (e.getNombre() == nombreEdificio){
+				e.setNombre(nuevoNombreEdificio);
+			}
+		}
+	}
+	
+	@Override
+	public void cargarAula (ArrayList <String> descripcionDeRecursos,String nombreEdificio, int numeroDeAula, int capacidadDeAula){
+		
+		boolean existeAula = false;
+		
+		for (Edificio unEdificio : this.edificios){
+			if (unEdificio.getNombre() == nombreEdificio){
+				
+				for (Aula unAula : unEdificio.obtenerListaAulas()){
+					if (unAula.getNumeroAula() == numeroDeAula){
+						existeAula = true;
+					}
+				}	
+				if (!existeAula) {
+					Aula nuevaAula = new Aula (numeroDeAula, descripcionDeRecursos, unEdificio, capacidadDeAula);
+					unEdificio.agregarAula(nuevaAula);	
+					this.aulas.add(nuevaAula);
+				}
+			}
+		}
+	}
+	@Override
+	public void bajaDeAula (String nombreEdificio, int numeroDeAula){
+		
+		for (Edificio unEdificio : this.edificios){
+			if (unEdificio.getNombre() == nombreEdificio){
+				for (Aula unAula : e.obtenerListaAulas()) {
+					if (unAula.getNumeroAula == numeroDeAula) {
+						e.quitarAula (unAula);
+					}
+				}
+			}
+		}
+	}
+	
+	
+	@Override
+	public void redefinirNumeroYReursosDeAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula, ArrayList<String> nuevosRecursos) {
+		for (Edificio unEdificio : this.edificios){
+			if (unEdificio.getNombre() == nombreEdificio){
+				Aula unAula = unEdificio.obtenerAulaEspecifica(numeroDeAula);
+				unAula.setListaRecursos (nuevosRecursos);
+				unAula.setNumeroAula (nuevoNumeroDeAula);
+			}
+		}
+	}
+	
+	@Override
+	public void redefinirRecursosDeAula (String nombreEdificio, int numeroDeAula, ArrayList<String> nuevosRecursos) {
+		
+		for (Edificio unEdificio : this.edificios){
+			if (unEdificio.getNombre() == nombreEdificio){
+				Aula unAula = unEdificio.obtenerAulaEspecifica(numeroDeAula);
+				unAula.setListaRecursos (nuevosRecursos);
+			}
+		}
+	}
+	
+	@Override
+	public void redefinirNumeroDeAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula) {
+		
+		for (Edificio unEdificio : this.edificios){
+			if (unEdificio.getNombre() == nombreEdificio){
+				Aula unAula = unEdificio.obtenerAulaEspecifica(numeroDeAula);
+				unAula.setNumeroAula (nuevoNumeroDeAula);
+			}
+		}
+	}
+	public List<AulaDTO> obtenerAulas (){}
+	public List<EdificioDTO> obtenerEdificios (){}
 }
