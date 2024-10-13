@@ -9,8 +9,10 @@ import ar.edu.unrn.seminario.modelo.Rol;
 import ar.edu.unrn.seminario.modelo.Usuario;
 
 import ar.edu.unrn.seminario.modelo.Edificio;
+import ar.edu.unrn.seminario.dto.EdificioDTO;
 import ar.edu.unrn.seminario.modelo.Recurso;
 import ar.edu.unrn.seminario.modelo.Aula;
+import ar.edu.unrn.seminario.dto.AulaDTO;
 
 //Implementa la fachada, se llama memory api porque almaceno en array list, viven en la memoria.
 public class MemoryApi implements IApi {
@@ -18,6 +20,7 @@ public class MemoryApi implements IApi {
 	
 	private List<Rol> roles = new ArrayList();
 	private List<Usuario> usuarios = new ArrayList<>();
+	
 	private List<Aula> aulas = new ArrayList<>();
 	private List<Edificio> edificios = new ArrayList<>();
 
