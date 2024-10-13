@@ -1,11 +1,15 @@
 package ar.edu.unrn.seminario.dto;
 
+import java.util.List;
+
+
 
 public class AulaDTO {
 	private int numeroAula; 
-	private  String nombreEdificio;
+	//private  String nombreEdificio;
+	private EdificioDTO edificio;
 	private int capacidad;
-	//que pasa con recursos, que es lo que me interesa saber ? la descripcion ?
+	private List<RecursoDTO> listaRecurso;
 	
 	
 	public int getNumeroAula() {
@@ -14,18 +18,62 @@ public class AulaDTO {
 	public void setNumeroAula(int numeroAula) {
 		this.numeroAula = numeroAula;
 	}
-	public String getNombreEdificio() {
+	/*public String getNombreEdificio() {
 		return nombreEdificio;
-	}
-	public void setNombreEdificio(String nombreEdificio) {
+	}*/
+	/*public void setNombreEdificio(String nombreEdificio) {
 		this.nombreEdificio = nombreEdificio;
-	}
+	}*/
 	public int getCapacidad() {
 		return capacidad;
 	}
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
 	}
+	public EdificioDTO getEdificio() {
+		return edificio;
+	}
+	public void setEdificio(EdificioDTO edificio) {
+		this.edificio = edificio;
+	}
+	
+	public boolean existeRecurso(String nombre) { // aca va un string de nombre dell recurso o un recurso de tipo recurso?
+		boolean existe= false;
+		for (RecursoDTO r: listaRecurso) {
+			if (r.getNombre()==nombre) {
+				existe= true;
+			}
+		}
+		return existe;
+	}
+		
+	
+	public void agregarRecurso (RecursoDTO recurso) {		
+		if (! existeRecurso(recurso)) {
+			listaRecurso.add (recurso);
+		}
+		
+	}
+	
+	public void eliminarRecurso (RecursoDTO recurso) {
+		
+		if (existeRecurso (recurso)) {
+			listaRecurso.remove(recurso);
+		}
+	}
+	
+	
+	public RecursoDTO obtenerRecurso (String nombreRecurso) {
+		RecusoDTO unRecurso= null;
+		for (RecuroDTO r: listaRecurso) {
+			if (r.getNombreRecurso () == nombreRecurso) {
+				unRecurso = r;
+			}
+		}
+		
+		return unRecurso;
+	}
+
 	
 
 

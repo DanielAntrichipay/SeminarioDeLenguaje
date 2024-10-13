@@ -1,4 +1,5 @@
 package ar.edu.unrn.seminario.modelo;
+import ar.edu.unrn.seminario.modelo.Recurso;// importo el recurso pero , no se si lo hago mal , o hay otra cuestion detras que no me permite usaro je
 import java.util.List;
 
 
@@ -31,24 +32,24 @@ public class Aula {
 		
 	}
 	
-	public void agregarRecurso(Recurso recurso) {
-		//recorro la lista de recursos para saber si el que quiero agregar ya se encuentra o no 
-		for (Recurso recurso : listaRecursos) {
-			if (recurso.obtenerDescripcion().equals(recurso.obtenerDescripcion())) { //aca etsa bien el equals ?
+	public void agregarRecurso(Recurso recursos) {
+		
+		for (Recurso r : listaRecursos) {
+			if (r.obtenerDescripcion().equals(r.obtenerDescripcion())) { 
 				System.out.println("El recurso ingresado ya se encuentra en el aula");
 			}
 			
 		}
-		listaRecursos.add(new Recurso(recurso));
+		listaRecursos.add(recursos);
+		
 		System.out.println("El recurso fue agregado con exito");
 	}
 	
 	public void quitarRecurso(Recurso recurso) {
-		//Recurso recursoaeliminar; hace falta esto??
-		for (Recurso recurso : listaRecursos) {
-			if (recurso.obtenerDescripcion().equals(recurso)) {
-				//recursoaeliminar = descripcion;
-				listaRecursos.remove(recurso);// esta parte, deveria ir afuera del for??
+		for (Recurso r : listaRecursos) {
+			if (r.obtenerDescripcion().equals(recurso)) {
+		
+				listaRecursos.remove(recurso);
 	            System.out.println("Recurso eiminado");
 	        } 
 			else {
