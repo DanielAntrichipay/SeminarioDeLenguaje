@@ -9,7 +9,7 @@ public class EdificioDTO {
 	/*------------------------------- ATRIBUTOS -------------------------------*/
 	
 	private String nombre; 
-	private List<Aula> listaAulas;
+	private List<AulaDTO> listaAulas;
 
 	/*-------------------------------- MÉTODOS --------------------------------*/
 	
@@ -21,14 +21,14 @@ public class EdificioDTO {
 		this.nombre = nombre;
 	} 
 	
-	public List<Aula> obtenerListaAulas() {
+	public List<AulaDTO> obtenerListaAulas() {
 		return listaAulas;
 	}
 	
 
-	public boolean existeAulaEnLista (Aula unAula) {
+	public boolean existeAulaEnLista (AulaDTO unAula) {
 		boolean existe= false;
-		for (Aula a: listaAulas) {
+		for (AulaDTO a: listaAulas) {
 			if (a.getNumeroAula()==unAula.getNumeroAula()) {
 				existe= true;
 			}
@@ -36,16 +36,26 @@ public class EdificioDTO {
 		return existe;
 	}
 	
-	// Queremos que edificioDTO tenga agregar o quitar aulas?????
+	public boolean existeAulaEnLista (int unNumeroAula) {
+		boolean existe= false;
+		for (AulaDTO a: listaAulas) {
+			if (a.getNumeroAula()==unNumeroAula) {
+				existe= true;
+			}
+		}
+		return existe;
+	}
 	
-	public void agregarAula (Aula unAula) {		
+	
+	
+	public void agregarAula (AulaDTO unAula) {		
 		if (! existeAulaEnLista(unAula)) {
 			listaAulas.add (unAula);
 		}
 		
 	}
 	
-	public void quitarAula (Aula unAula) {
+	public void quitarAula (AulaDTO unAula) {
 		
 		if (existeAulaEnLista (unAula)) {
 			listaAulas.remove(unAula);
@@ -53,9 +63,9 @@ public class EdificioDTO {
 	}
 	
 	
-	public Aula obtenerAulaEspecifica (int unNumeroAula) {
-		Aula unAula= null;
-		for (Aula a: listaAulas) {
+	public AulaDTO obtenerAulaEspecifica (int unNumeroAula) {
+		AulaDTO unAula= null;
+		for (AulaDTO a: listaAulas) {
 			if (a.getNumeroAula () == unNumeroAula) {
 				unAula = a;
 			}
@@ -69,6 +79,7 @@ public class EdificioDTO {
 	public EdificioDTO(String unNombre) {
 		super();
 		this.nombre=unNombre;
+		
 	}
 
 }
