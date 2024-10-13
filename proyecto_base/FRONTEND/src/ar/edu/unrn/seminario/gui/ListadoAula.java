@@ -2,6 +2,7 @@ package ar.edu.unrn.seminario.gui;
 
 import java.awt.EventQueue;
 
+import ar.edu.unrn.seminario.api.IApi;
 import javax.swing.JFrame;
 
 public class ListadoAula {
@@ -9,35 +10,14 @@ public class ListadoAula {
 	private JFrame frame;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ListadoAula window = new ListadoAula();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
-	public ListadoAula() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	public ListadoAula(IApi api) {
 		frame = new JFrame("Listado de aula");
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frame.setVisible (true);
 	}
 
 }

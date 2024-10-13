@@ -54,6 +54,9 @@ public class AltaAula {
 		// Obtengo los edificios
 		this.edificios = api.obtenerEdificios();
 		
+		// Centrar la ventana		
+		
+       
 		// Creo la ventana principal
 		frame = new JFrame("Alta de aula");		
 		// Configuro las caracteristicas de la ventana principal
@@ -68,7 +71,7 @@ public class AltaAula {
 		
 		// Campo de texto para el número de aula
 		textFieldNumeroAula = new JTextField();
-		textFieldNumeroAula.setBounds(206, 41, 69, 19);
+		textFieldNumeroAula.setBounds(204, 41, 134, 19);
 		frame.getContentPane().add(textFieldNumeroAula);
 		textFieldNumeroAula.setColumns(10);
 		
@@ -80,7 +83,7 @@ public class AltaAula {
 		
 		// Combo Box para edificio
 		edificioComboBox = new JComboBox();
-		edificioComboBox.setBounds(148, 10, 134, 21); 
+		edificioComboBox.setBounds(204, 10, 134, 21); 
 		frame.getContentPane().add(edificioComboBox);
 		
 		for (EdificioDTO edificio : this.edificios) {
@@ -96,7 +99,7 @@ public class AltaAula {
 		// Campo de texto para capacidad
 		textFieldCapacidad = new JTextField();
 		textFieldCapacidad.setColumns(10);
-		textFieldCapacidad.setBounds(206, 74, 69, 19);
+		textFieldCapacidad.setBounds(204, 74, 134, 19);
 		frame.getContentPane().add(textFieldCapacidad);
 		
 		// Label para Recurso
@@ -127,7 +130,7 @@ public class AltaAula {
 		
 		// Boton para añadir Recursos
 		JButton btnAadirRecursos = new JButton("Añadir más recursos");
-		btnAadirRecursos.setBounds(253, 201, 133, 21);
+		btnAadirRecursos.setBounds(206, 201, 133, 21);
 		frame.getContentPane().add(btnAadirRecursos);
 		
 		// Listener para el boton añadir más recursos
@@ -177,7 +180,12 @@ public class AltaAula {
 		btnCancelar.setBounds(253, 232, 85, 21);
 		frame.getContentPane().add(btnCancelar);
 		
+	
+		frame.setVisible(true);
+		
 	}
 	
+
+
 	
 }

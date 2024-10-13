@@ -12,6 +12,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import java.awt.Window;
+
 import ar.edu.unrn.seminario.api.IApi;
 import ar.edu.unrn.seminario.api.MemoryApi;
 
@@ -42,13 +44,18 @@ public class VentanaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPrincipal(IApi api) {
+		
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 		
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);		
 		JMenu usuarioMenu = new JMenu("Usuarios");
 		menuBar.add(usuarioMenu);
 
@@ -68,11 +75,10 @@ public class VentanaPrincipal extends JFrame {
 		listadoUsuarioMenuItem.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
-				ListadoUsuario listado= new ListadoUsuario(api);
-				listado.setLocationRelativeTo(null);
-				listado.setVisible(true);
-			}
-			
+				ListadoUsuario listadoDeUsuario= new ListadoUsuario(api);
+				listadoDeUsuario.setLocationRelativeTo(null);
+				listadoDeUsuario.setVisible(true);
+			}			
 		});
 		usuarioMenu.add(listadoUsuarioMenuItem);
 		
@@ -81,14 +87,34 @@ public class VentanaPrincipal extends JFrame {
 		menuBar.add(aulaMenu);
 		
 		JMenuItem altaAulaMenuItem = new JMenuItem ("Alta/Modificación");
-		// agregar el action listener
 		
+		altaAulaMenuItem.addActionListener(new ActionListener () {
+			
+			public void actionPerformed (ActionEvent e) {
+				AltaAula altaDeAula = new AltaAula (api);
+				
+				// por qué da error esta parte????????????????????
+				altaDeAula.setLocationRelativeTo(null);
+				altaDeAula.setVisible(true);
+				
+			}
+		});	
 
 		aulaMenu.add(altaAulaMenuItem);
 		
 		JMenuItem listadoAulaMenuItem = new JMenuItem ("Listado");
 		
-		// agregar el listener
+		listadoAulaMenuItem.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				ListadoAula aulaListado= new ListadoAula(api);
+				
+				// por qué da error esta parte????????????????????
+				aulaListado.setLocationRelativeTo(null);
+				aulaListado.setVisible(true);
+			}
+			
+		});
 		
 		aulaMenu.add(listadoAulaMenuItem);
 
@@ -97,16 +123,21 @@ public class VentanaPrincipal extends JFrame {
 
 		JMenuItem salirMenuItem = new JMenuItem("Salir");
 		configuracionMenu.add(salirMenuItem);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		salirMenuItem.addActionListener(new ActionListener(){
+		public void actionPerformed (ActionEvent e) {
+				System.exit(0); // Cerrar la aplicación
+		
+	
 	
 
 
 	}
+		});
 	
-	}
+		}
+	
+};
+		
 
 	
 
