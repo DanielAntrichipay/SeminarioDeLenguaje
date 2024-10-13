@@ -9,6 +9,7 @@ import ar.edu.unrn.seminario.modelo.Rol;
 import ar.edu.unrn.seminario.modelo.Usuario;
 
 import ar.edu.unrn.seminario.modelo.Edificio;
+import ar.edu.unrn.seminario.modelo.Recurso;
 import ar.edu.unrn.seminario.modelo.Aula;
 
 //Implementa la fachada, se llama memory api porque almaceno en array list, viven en la memoria.
@@ -183,6 +184,7 @@ public class MemoryApi implements IApi {
 			}
 		}
 	}
+	
 	@Override
 	public void actualizarEdificio (String nombreEdificio, String nuevoNombreEdificio){
 		for (Edificio e : this.edificios){
@@ -191,82 +193,65 @@ public class MemoryApi implements IApi {
 			}
 		}
 	}
+	
+	// --- AULA ---
+	
 	@Override
-	public void cargarAula (ArrayList <String> descripcionDeRecursos,String nombreEdificio, int numeroDeAula, int capacidadDeAula){
-
-		boolean existeAula = false;
-		
+	public void cargarAula (ArrayList <Recurso> recursos, String nombreEdificio, int numeroDeAula, int capacidadDeAula){
+	// Debe recibir los datos de tipo strings de los recursos y transformarlos en objetos (¿DTO?).
 		for (Edificio unEdificio : this.edificios){
-			if (unEdificio.getNombre() == nombreEdificio){
-				
-				for (Aula a : unEdificio.obtenerListaAulas()){
-					if (a.getNumeroAula() == numeroDeAula){
-						existeAula = true;
-					}
-				}	
-				if (!existeAula) {
-					Aula nuevaAula = new Aula (numeroDeAula, descripcionDeRecursos, unEdificio, capacidadDeAula);
-					unEdificio.agregarAula(nuevaAula);	
-					this.aulas.add(nuevaAula);
-				}
-			}
+			if (unEdificio.getNombre() == nombreEdificio && !unEdificio.existeAulaEnLista(numeroDeAula)){
+				Aula nuevaAula = new Aula (numeroDeAula, recursos, unEdificio, capacidadDeAula);
+				unEdificio.agregarAula(nuevaAula);	
+				this.aulas.add(nuevaAula);			 
+			}	
 		}
 	}
+
 	@Override
 	public void bajaDeAula (String nombreEdificio, int numeroDeAula){
 		
-		for (Edificio e : this.edificios){
-			if (e.getNombre() == nombreEdificio){
-				for (Aula unAula : e.obtenerListaAulas()) {
-					if (unAula.getNumeroAula () == numeroDeAula) {
-						e.quitarAula (unAula);
-					}
-				}
+		for (Edificio unEdificio : this.edificios){
+			if (unEdificio.getNombre() == nombreEdificio && unEdificio.existeAulaEnLista(numeroDeAula)){
+				Aula aulaADarDeBaja = unEdificio.obtenerAulaEspecifica(numeroDeAula);
+				unEdificio.quitarAula(aulaADarDeBaja);
+				this.aulas.remove(aulaADarDeBaja);
 			}
 		}
 	}
 	
 	//---------------------- Refactorizar métodos usando el método "obtenerAulaEspecifica" de la entidad edificio ------------------------------------------------------//
-	@Override
-	public void redefinirNumeroYRecursosDeAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula, ArrayList<String> nuevosRecursos) {
-		for (Edificio e : this.edificios){
-			if (e.getNombre() == nombreEdificio){
-				for (Aula unAula : e.obtenerListaAulas()) {
-					if (unAula.getNumeroAula () == numeroDeAula) {
-						unAula.setListaRecursos (nuevosRecursos);
-						unAula.setNumeroAula (nuevoNumero)
-					}
-				}
-			}
-	}
-	@Override
-	public void redefinirRecursosDeAula (String nombreEdificio, int numeroDeAula, ArrayList<String> nuevosRecursos) {
-		
-		for (Edificio e : this.edificios){
-			if (e.getNombre() == nombreEdificio){
-				for (Aula unAula : e.obtenerListaAulas()) {
-					if (unAula.getNumeroAula () == numeroDeAula) {
-						unAula.setListaRecursos (nuevosRecursos);
-					}
-				}
-			}
-	}
-	}
-	@Override
-	public void redefinirNumeroDeAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula) {
-		
-		for (Edificio e : this.edificios){
-			if (e.getNombre() == nombreEdificio){
-				for (Aula unAula : e.obtenerListaAulas()) {
-					if (unAula.getNumeroAula () == numeroDeAula) {
-						unAula.setNumeroAula (nuevoNumeroDeAula);
-					}
-				}
-			}
-	}
-	//public void actualizarAula (String nombreEdificio, int numeroDeAula,  String descripcionDeRecurso, String nuevaDescripcionDeRecurso, int nuevoNumeroDeAula){}
 	
-	//public void actualizarAula (String nombreEdificio, int numeroDeAula, String descripcionDeRecurso, String nuevaDescripcionDeRecurso){}
+	@Override
+	public void modificarAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula, ArrayList<Recurso> nuevosRecursos) {
+		for (Edificio unEdificio : this.edificios){
+			if (unEdificio.getNombre() == nombreEdificio && unEdificio.existeAulaEnLista(numeroDeAula)){
+				Aula aulaParaModificar = unEdificio.obtenerAulaEspecifica(numeroDeAula);
+				aulaParaModificar.setListaRecurso(nuevosRecursos);
+				aulaParaModificar.setNumeroAula(nuevoNumeroDeAula);
+			}
+		}
+	}
+
+	@Override
+	public void modificarAula (String nombreEdificio, int numeroDeAula, ArrayList<Recurso> nuevosRecursos) {
+		for (Edificio unEdificio : this.edificios){
+			if (unEdificio.getNombre() == nombreEdificio && unEdificio.existeAulaEnLista(numeroDeAula)){
+				Aula aulaParaModificar = unEdificio.obtenerAulaEspecifica(numeroDeAula);
+				aulaParaModificar.setListaRecurso(nuevosRecursos);
+			}
+		}
+	}
 	
-	//public void actualizarAula (String nombreEdificio, int NnumeroDeAula, int nuevoNumeroDeAula){}
+	@Override
+	public void modificarAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula) {
+		
+		for (Edificio unEdificio : this.edificios){
+			if (unEdificio.getNombre() == nombreEdificio && unEdificio.existeAulaEnLista(numeroDeAula)){
+				Aula aulaParaModificar = unEdificio.obtenerAulaEspecifica(numeroDeAula);
+				aulaParaModificar.setNumeroAula(nuevoNumeroDeAula);
+			}
+		}
+	}
+
 }

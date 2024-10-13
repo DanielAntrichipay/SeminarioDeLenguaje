@@ -5,6 +5,7 @@ import java.util.List;
 
 import ar.edu.unrn.seminario.dto.RolDTO;
 import ar.edu.unrn.seminario.dto.UsuarioDTO;
+import ar.edu.unrn.seminario.modelo.Recurso;
 
 //Esto es la fachada
 public interface IApi {
@@ -43,20 +44,13 @@ public interface IApi {
 	
 	//--- lOGICA DE AULA.
 	
-	void cargarAula (ArrayList <String> descripcionDeRecursos,String nombreEdificio, int numeroDeAula, int capacidadDeAula);
+	void cargarAula (ArrayList <Recurso> recursos, String nombreEdificio, int numeroDeAula, int capacidadDeAula);
 	
 	void bajaDeAula (String nombreEdificio, int numeroDeAula);
 	
-	void redefinirNumeroYRecursosDeAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula, ArrayList<String> nuevosRecursos);
+	void modificarAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula, ArrayList<Recurso> nuevosRecursos);
 	
-	void redefinirRecursosDeAula (String nombreEdificio, int numeroDeAula, ArrayList<String> nuevosRecursos);
+	void modificarAula (String nombreEdificio, int numeroDeAula, ArrayList<Recurso> nuevosRecursos);
 	
-	void redefinirNumeroDeAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula);
-	
-	//void actualizarAula (String nombreEdificio, int numeroDeAula, String descripcionDeRecurso, String nuevaDescripcionDeRecurso, int nuevoNumeroDeAula);
-	
-	//void actualizarAula (String nombreEdificio, int numeroDeAula, String descripcionDeRecurso, String nuevaDescripcionDeRecurso);
-	
-	//void actualizarAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula);
-	
+	void modificarAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula);
 }
