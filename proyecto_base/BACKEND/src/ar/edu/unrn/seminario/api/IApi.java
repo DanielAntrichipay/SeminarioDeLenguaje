@@ -36,7 +36,7 @@ public interface IApi {
 	
 	//--- LOGICA DE EDIFICIO.
 	
-	void cargarEdificio (String nombreEdificio);
+	void cargarEdificio (String nombreEdificio, String direccion);
 	
 	void bajaDeEdificio (String nombreEdificio);
 	
@@ -44,7 +44,7 @@ public interface IApi {
 	
 	//--- lOGICA DE AULA.
 	
-	void cargarAula (ArrayList <Recurso> recursos, String nombreEdificio, int numeroDeAula, int capacidadDeAula);
+	void cargarAula (ArrayList <String> NombresDeRecursos, ArrayList <String> descripcionDeRecursos, String nombreEdificio, int numeroDeAula, int capacidadDeAula);
 	
 	void bajaDeAula (String nombreEdificio, int numeroDeAula);
 	

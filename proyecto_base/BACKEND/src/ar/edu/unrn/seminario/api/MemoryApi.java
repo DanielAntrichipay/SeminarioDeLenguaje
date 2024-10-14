@@ -11,12 +11,12 @@ import ar.edu.unrn.seminario.modelo.Usuario;
 import ar.edu.unrn.seminario.modelo.Edificio;
 import ar.edu.unrn.seminario.dto.EdificioDTO;
 import ar.edu.unrn.seminario.modelo.Recurso;
+import ar.edu.unrn.seminario.dto.RecursoDTO;
 import ar.edu.unrn.seminario.modelo.Aula;
 import ar.edu.unrn.seminario.dto.AulaDTO;
 
 //Implementa la fachada, se llama memory api porque almaceno en array list, viven en la memoria.
 public class MemoryApi implements IApi {
-
 	
 	private List<Rol> roles = new ArrayList();
 	private List<Usuario> usuarios = new ArrayList<>();
@@ -161,7 +161,7 @@ public class MemoryApi implements IApi {
 	
 	//--- AMB AULA
 	@Override
-	public void cargarEdificio (String nombreEdificio){
+	public void cargarEdificio (String nombreEdificio, String direccion){
 		
 		boolean elEdificioExiste= false;
 		
@@ -172,7 +172,7 @@ public class MemoryApi implements IApi {
 		}
 			
 		if (!elEdificioExiste) {
-			Edificio nuevoEdificio = new Edificio (nombreEdificio);
+			Edificio nuevoEdificio = new Edificio (nombreEdificio, direccion);
 			this.edificios.add(nuevoEdificio);
 		}	
 	}
@@ -188,6 +188,25 @@ public class MemoryApi implements IApi {
 		}
 	}
 	
+	public List<EdificioDTO> obtenerEdificiosDTO(){
+		
+		List<EdificioDTO> listaEdificiosDTO = new ArrayList<>();
+		List<AulaDTO> listaAulasDTO = new ArrayList<>();
+		List<RecursoDTO> listaRecursosDTO = new ArrayList<>();
+		
+		for (Edificio unEdificio : this.edificios) {
+			EdificioDTO unEdificioDTO = new EdificioDTO (unEdificio.getNombre());
+			for (Aula unAula : unEdificio.obtenerListaAulas()) {
+				for (Recurso unRecurso : unAula.getListaRecursos())
+				AulaDTO unAulaDTO = new AulaDTO ();
+			}
+			
+		}
+		
+		return listaEdificiosDTO;
+		
+	}
+	
 	@Override
 	public void actualizarEdificio (String nombreEdificio, String nuevoNombreEdificio){
 		for (Edificio e : this.edificios){
@@ -195,13 +214,13 @@ public class MemoryApi implements IApi {
 				e.setNombre(nuevoNombreEdificio);
 			}
 		}
-	}
+	}	
 	
 	// --- AULA ---
 	
 	@Override
-	public void cargarAula (ArrayList <Recurso> recursos, String nombreEdificio, int numeroDeAula, int capacidadDeAula){
-	// Debe recibir los datos de tipo strings de los recursos y transformarlos en objetos (¿DTO?).
+	public void cargarAula (ArrayList <String> NombresDeRecursos, ArrayList <String> descripcionDeRecursos, String nombreEdificio, int numeroDeAula, int capacidadDeAula){
+	// Empezar de nuevo
 		for (Edificio unEdificio : this.edificios){
 			if (unEdificio.getNombre() == nombreEdificio && !unEdificio.existeAulaEnLista(numeroDeAula)){
 				Aula nuevaAula = new Aula (numeroDeAula, recursos, unEdificio, capacidadDeAula);
@@ -222,8 +241,6 @@ public class MemoryApi implements IApi {
 			}
 		}
 	}
-	
-	//---------------------- Refactorizar métodos usando el método "obtenerAulaEspecifica" de la entidad edificio ------------------------------------------------------//
 	
 	@Override
 	public void modificarAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula, ArrayList<Recurso> nuevosRecursos) {
@@ -253,8 +270,18 @@ public class MemoryApi implements IApi {
 			if (unEdificio.getNombre() == nombreEdificio && unEdificio.existeAulaEnLista(numeroDeAula)){
 				Aula aulaParaModificar = unEdificio.obtenerAulaEspecifica(numeroDeAula);
 				aulaParaModificar.setNumeroAula(nuevoNumeroDeAula);
-			}
 		}
 	}
+}
+//------------------------------------------------------------------------------------------------------------
 
+	private List<EdificioDTO> construirEdifioDTO () {
+		List<EdificioDTO> listaEdificiosDTO = new Array()
+	}
+	private List<AulaDTO> construirAulasDTO () {
+		
+	}
+	private List<RecursoDTO> construirRecursoDTO () {
+		
+	}
 }
