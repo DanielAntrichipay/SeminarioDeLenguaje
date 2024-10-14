@@ -6,7 +6,8 @@ public class EdificioDTO {
 	
 	/*------------------------------- ATRIBUTOS -------------------------------*/
 	
-	private String nombre; 
+	private String nombre;
+	private String direccion;
 	private List<AulaDTO> listaAulas;
 
 	/*-------------------------------- MÉTODOS --------------------------------*/
@@ -74,9 +75,10 @@ public class EdificioDTO {
 
 	/*----------------------------- CONSTRUCTORES -----------------------------*/
 
-	public EdificioDTO(String unNombre) {
+	public EdificioDTO(String unNombre, String unaDireccion) {
 		super();
 		this.nombre=unNombre;
+		this.direccion= unaDireccion;
 		
 	}
 

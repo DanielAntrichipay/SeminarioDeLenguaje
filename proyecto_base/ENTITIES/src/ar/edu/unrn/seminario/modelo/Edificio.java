@@ -6,7 +6,10 @@ public class Edificio {
 	
 	/*------------------------------- ATRIBUTOS -------------------------------*/
 	
-	private String nombre; 
+	private String nombre;
+	private String direccion;
+	
+	
 	private List<Aula> listaAulas;
 	
 	
@@ -80,9 +83,12 @@ public class Edificio {
 		
 	}
 	
-	public Edificio (String unNombre) {
+	public Edificio (String unNombre, String unaDireccion) {
 		super();
 		this.nombre= unNombre;
+		this.direccion= unaDireccion;
+		
+		
 	
 	
 }
