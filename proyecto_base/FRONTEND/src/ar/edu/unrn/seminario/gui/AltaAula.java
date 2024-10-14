@@ -141,7 +141,7 @@ public class AltaAula {
 				
 				RecursoDTO unNuevoRecurso = new RecursoDTO (nombreDelRecurso, descripcionRecurso);
 				
-				this.recursos.add(unNuevoRecurso);
+				recursos.add(unNuevoRecurso);
 				
 				// Seteo los campos así se puede agregar más recursos
 				
