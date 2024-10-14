@@ -2,8 +2,6 @@ package ar.edu.unrn.seminario.dto;
 
 import java.util.List;
 
-import ar.edu.unrn.seminario.modelo.Aula;
-
 public class EdificioDTO {
 	
 	/*------------------------------- ATRIBUTOS -------------------------------*/

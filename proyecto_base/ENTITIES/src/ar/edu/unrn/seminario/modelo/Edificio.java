@@ -25,12 +25,21 @@ public class Edificio {
 		return listaAulas;
 	}
 	
-	// está bien el uso de === o tengo que usar equals?
-
+	
 	public boolean existeAulaEnLista (Aula unAula) {
 		boolean existe= false;
 		for (Aula a: listaAulas) {
 			if (a.getNumeroAula()==unAula.getNumeroAula()) {
+				existe= true;
+			}
+		}
+		return existe;
+	}
+	
+	public boolean existeAulaEnLista (int unNumeroAula) {
+		boolean existe= false;
+		for (Aula a: listaAulas) {
+			if (a.getNumeroAula()==unNumeroAula) {
 				existe= true;
 			}
 		}
