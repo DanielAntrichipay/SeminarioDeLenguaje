@@ -42,7 +42,7 @@ public class AulaDTO {
 	public boolean existeRecurso(String nombre) { // aca va un string de nombre dell recurso o un recurso de tipo recurso?
 		boolean existe= false;
 		for (RecursoDTO r: listaRecurso) {
-			if (r.getNombre()==nombre) {
+			if (r.obtenerNombre()==nombre) {
 				existe= true;
 			}
 		}
