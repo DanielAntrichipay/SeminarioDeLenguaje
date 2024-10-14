@@ -17,12 +17,12 @@ public class AltaEdificio {
 	private JFrame frame;	// Ventana principal
 	private JTextField textFieldNombreEdificio;// aca quizas conviene usar un jcomboBox
 	private JTextField textFieldNumeroDeAula;
-	private JTextField textFieldCpacidadDeAula;
+	//private JTextField textFieldCpacidadDeAula;
 	private JButton Aceptar; 
 	private JButton Cancelar; 
 	private JButton Modificar;
 	
-	private List<AulaDTO> recursos = new ArrayList<>(); //Lista de Recursos
+	private List<Aula> recursos = new ArrayList<>(); //Lista de Recursos
 	
 	
 	/**
@@ -34,7 +34,30 @@ public class AltaEdificio {
         frame.setBounds(100, 100, 450, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        JLabel lblNombreEdificio = new JLabel("Nombre del edificio");
-        lblNombreEdificio.setBounds(50, 30, 130, 20);
+        JLabel nombreEdificio = new JLabel("Nombre del edificio");
+        nombreEdificio.setBounds(50, 30, 130, 20);
+        frame.getContentPane().add(nombreEdificio);
+        
+        
+        TexField nombreEdificio = new JTextField ();
+        nombreEdificio.setBounds (200,30,180,20);
+        frame.getContentPane().add(nombreEdificio);
+        
+        JLabel seleccionarEdificio = new JLabel("Seleccione el edificio");
+        nombreEdificio.setBounds(50, 30, 130, 20);
+        frame.getContentPane().add(nombreEdificio);
+        
+        seleccionarComboBox = new JComboBox();
+        seleccionarComboBox.setBound (200,30,180,20);
+        frame.getContentPane().add(seleccionarComboBox);
+        
+        
+        
+        
+        
+        
+        
+        
 }
+	
 }

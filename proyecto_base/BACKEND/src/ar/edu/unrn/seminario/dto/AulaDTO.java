@@ -5,6 +5,7 @@ import java.util.List;
 
 
 public class AulaDTO {
+	
 	private int numeroAula; 
 	//private  String nombreEdificio;
 	private EdificioDTO edificio;
@@ -12,18 +13,19 @@ public class AulaDTO {
 	private List<RecursoDTO> listaRecurso;
 	
 	
+	public List<RecursoDTO> getListaRecurso() {
+		return listaRecurso;
+	}
+	public void setListaRecurso(List<RecursoDTO> listaRecurso) {
+		this.listaRecurso = listaRecurso;
+	}
 	public int getNumeroAula() {
 		return numeroAula;
 	}
 	public void setNumeroAula(int numeroAula) {
 		this.numeroAula = numeroAula;
 	}
-	/*public String getNombreEdificio() {
-		return nombreEdificio;
-	}*/
-	/*public void setNombreEdificio(String nombreEdificio) {
-		this.nombreEdificio = nombreEdificio;
-	}*/
+
 	public int getCapacidad() {
 		return capacidad;
 	}
@@ -74,7 +76,21 @@ public class AulaDTO {
 		return unRecurso;
 	}
 
+	public AulaDTO(int numeroAula, EdificioDTO edificio, int capacidad, List<RecursoDTO> listaRecurso) {
+		//super();
+		this.numeroAula = numeroAula;
+		this.edificio = edificio;
+		this.capacidad = capacidad;
+		this.listaRecurso = listaRecurso;
+		
+	}
 	
+	public AulaDTO(int numeroAula, EdificioDTO edificio, int capacidad) {
+		//super();
+		this.numeroAula = numeroAula;
+		this.edificio = edificio;
+		this.capacidad = capacidad;
+	}
 
 
 }
