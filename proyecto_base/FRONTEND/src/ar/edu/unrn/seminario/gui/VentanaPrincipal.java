@@ -1,5 +1,6 @@
 package ar.edu.unrn.seminario.gui;
 
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -91,11 +92,8 @@ public class VentanaPrincipal extends JFrame {
 		altaAulaMenuItem.addActionListener(new ActionListener () {
 			
 			public void actionPerformed (ActionEvent e) {
-				AltaAula altaDeAula = new AltaAula (api);
+				AltaAula altaDeAula = new AltaAula (api);				
 				
-				// por qué da error esta parte????????????????????
-				altaDeAula.setLocationRelativeTo(null);
-				altaDeAula.setVisible(true);
 				
 			}
 		});	
@@ -108,11 +106,7 @@ public class VentanaPrincipal extends JFrame {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				ListadoAula aulaListado= new ListadoAula(api);
-				
-				// por qué da error esta parte????????????????????
-				aulaListado.setLocationRelativeTo(null);
-				aulaListado.setVisible(true);
-			}
+							}
 			
 		});
 		
