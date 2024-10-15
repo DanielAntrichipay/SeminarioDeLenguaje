@@ -43,7 +43,8 @@ public class AltaAula {
 	private JButton btnAceptar; // Boton aceptar
 	private JButton btnCancelar; // Boton cancelar
 	
-	private List<RecursoDTO> recursos = new ArrayList<>(); //Lista de Recursos
+	private List<String> nombreRecursos = new ArrayList<>(); //Lista de nombres de Recursos
+	private List<String> descripcionRecursos = new ArrayList<>(); //Lista de Recursos
 	private List<EdificioDTO> edificios = new ArrayList<>(); // Lista de Edificios
 	
 	/**
@@ -137,18 +138,19 @@ public class AltaAula {
 		btnAadirRecursos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nombreDelRecurso = textFieldNombreRecurso.getText();
-				String descripcionRecurso = textAreaRecurso.getText();
+				String descripcionDelRecurso = textAreaRecurso.getText();
 				
-				RecursoDTO unNuevoRecurso = new RecursoDTO (nombreDelRecurso, descripcionRecurso);
+				nombreRecursos.add(nombreDelRecurso);
+				descripcionRecursos.add(descripcionDelRecurso);
 				
-				recursos.add(unNuevoRecurso);
-				
-				// Seteo los campos así se puede agregar más recursos
-				
+						
 				textFieldNombreRecurso.setText("");
 				textAreaRecurso.setText("");
 				
-				JOptionPane.showMessageDialog(null, "El recurso " + textFieldNombreRecurso.getText() + " ha sido añadido", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, 
+						"El recurso " + textFieldNombreRecurso.getText() + " ha sido añadido", 
+						"Mensaje", 
+						JOptionPane.INFORMATION_MESSAGE);
 				frame.setVisible(false);
 				frame.dispose();
 			}
@@ -160,7 +162,11 @@ public class AltaAula {
 			public void actionPerformed(ActionEvent arg0) {			
 				
 				EdificioDTO unEdificio = edificios.get(edificioComboBox.getSelectedIndex());
-				api.cargarAula(recursos, unEdificio.getNombre(),textFieldNumeroAula.getText(), textFieldCapacidad.getText());
+				api.cargarAula(nombreRecursos, descripcionRecursos,  unEdificio.getNombre(),textFieldNumeroAula.getText(), textFieldCapacidad.getText());
+				JOptionPane.showMessageDialog(null, 
+						"Aula ingresada con exito!", 
+						"Información", 
+						JOptionPane.INFORMATION_MESSAGE);
 				frame.setVisible(false);
 				frame.dispose();
 				
