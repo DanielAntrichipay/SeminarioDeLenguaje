@@ -1,12 +1,12 @@
 package ar.edu.unrn.seminario.gui;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -28,7 +28,8 @@ public class ListadoUsuario extends JFrame {
 	IApi api;
 	JButton activarButton;
 	JButton desactivarButton;
-
+	JButton modificarButton;
+	JButton darDeBajaButton;
 	/**
 	 * Create the frame.
 	 */
@@ -80,9 +81,7 @@ public class ListadoUsuario extends JFrame {
 
 					api.activarUsuario(username);
 					actualizarTabla();
-
 				}
-
 			}
 
 		});
@@ -91,11 +90,11 @@ public class ListadoUsuario extends JFrame {
 		desactivarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int reply = JOptionPane.showConfirmDialog(null,
-						"Estas seguro que queres cambiar el estado del Usuario?", "Confirmar cambio de estado.",
+						"¿Estas seguro que queres cambiar el estado del Usuario?", "Confirmar cambio de estado.",
 						JOptionPane.YES_NO_OPTION);
 				if (reply == JOptionPane.YES_OPTION) {
 					String username = (String) table.getModel().getValueAt(table.getSelectedRow(), 0);
-
+				
 					api.desactivarUsuario(username);
 					actualizarTabla();
 
@@ -110,15 +109,83 @@ public class ListadoUsuario extends JFrame {
 				dispose();
 			}
 		});
-//		contentPane.add(cerrarButton, BorderLayout.SOUTH);
+		
+		
+		modificarButton = new JButton("Modificar");
+		modificarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int reply = JOptionPane.showConfirmDialog(null,
+						"¿Esta seguro que desea modificar este usuario?", "Confirmar modificacion.",
+						JOptionPane.YES_NO_OPTION);
+				if (reply == JOptionPane.YES_OPTION) {
+		            int selectedRow = table.getSelectedRow(); 
 
-		JPanel pnlBotonesOperaciones = new JPanel();
+		            if (selectedRow == -1) {
+		                JOptionPane.showMessageDialog(null, "Seleccione un usuario a modificar.");
+		                return;
+		            }
+		            // Obtener los valores de la fila seleccionada
+		            String username = (String) table.getModel().getValueAt(selectedRow, 0); // Columna 0 : nombre usuario  
+		            String nombre = (String) table.getModel().getValueAt(selectedRow, 1);   // Columna 1: nombre
+		            String email = (String) table.getModel().getValueAt(selectedRow, 2);    // Columna 2: email
+		            String contrasena = (String) table.getModel().getValueAt(selectedRow, 3); // Columna 3: contraseña
+		            
+		            //Rol rol = (Rol) table.getModel().getValueAt(selectedRow, 5); // Columna : rol ... NO SE SI ROL CONSIDERARLO MODIFICABLE
+
+		            // USO DE EXCEPTION (en caso de que esten vacios)
+		            if (username.isEmpty() || nombre.isEmpty() || email.isEmpty() || contrasena.isEmpty()) { // rol.isEmpty()) {
+		                JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos.");
+		                return;
+		            }
+
+		            try {
+		                // Llamada a la API
+		                api.modificarUsuario(username, nombre, email, contrasena); //me falta el metodo modificarUsuario en api
+		                actualizarTabla();  
+		            } catch (Exception ex) {
+		                JOptionPane.showMessageDialog(null, "Error al modificar el usuario: " + ex.getMessage());
+		            }
+		        }
+		    }
+		});
+		
+		darDeBajaButton = new JButton("Dar de baja");
+		darDeBajaButton.addActionListener(new ActionListener() {
+		   public void actionPerformed(ActionEvent e) {
+		      // Verificar que hay una fila seleccionada
+		      int filaSeleccionada = table.getSelectedRow();
+		      if (filaSeleccionada == -1) {
+		         JOptionPane.showMessageDialog(null, "Debe seleccionar un usuario primero.");
+		         return;
+		      }
+
+		      // En caso de confirmar la accion..
+		      int reply = JOptionPane.showConfirmDialog(null,
+		            "¿Está seguro que desea dar de baja este usuario?", "Confirmar baja.",
+		            JOptionPane.YES_NO_OPTION);
+		      
+		      if (reply == JOptionPane.YES_OPTION) {
+		         String username = (String) table.getModel().getValueAt(filaSeleccionada, 0);
+		         api.darDeBajaUsuario(username); //me falta el metodo darDeBajaUsuario en api
+		         actualizarTabla(); // Actualiza la tabla despues de dar de baja al usuario
+		      }
+		   }
+		});
+
+		
+		contentPane.add(cerrarButton, BorderLayout.SOUTH);
+
+		JPanel pnlBotonesOperaciones = new JPanel(new FlowLayout());
 		pnlBotonesOperaciones.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		contentPane.add(pnlBotonesOperaciones, BorderLayout.SOUTH);
+
 		pnlBotonesOperaciones.add(desactivarButton);
 		pnlBotonesOperaciones.add(activarButton);
-		pnlBotonesOperaciones.add(cerrarButton);
+		pnlBotonesOperaciones.add(modificarButton); 
+		pnlBotonesOperaciones.add(darDeBajaButton); 
+		pnlBotonesOperaciones.add(cerrarButton); 
 
+		
 		// Deshabilitar botones que requieren tener una fila seleccionada
 		habilitarBotones(false);
 	}
@@ -126,6 +193,8 @@ public class ListadoUsuario extends JFrame {
 	private void habilitarBotones(boolean b) {
 		activarButton.setEnabled(b);
 		desactivarButton.setEnabled(b);
+		modificarButton.setEnabled(b); 
+		darDeBajaButton.setEnabled(b); 
 
 	}
 
