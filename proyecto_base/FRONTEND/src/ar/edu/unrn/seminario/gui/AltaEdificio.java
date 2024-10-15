@@ -17,6 +17,7 @@ import javax.swing.AbstractButton;
 import ar.edu.unrn.seminario.api.IApi;
 import ar.edu.unrn.seminario.dto.EdificioDTO;
 import ar.edu.unrn.seminario.dto.RecursoDTO;
+import ar.edu.unrn.seminario.dto.RolDTO;
 
 public class AltaEdificio {
 	private JFrame frame;	// Ventana principal
@@ -24,7 +25,7 @@ public class AltaEdificio {
 	private JTextField textFieldDireccionEdificio;
 	private JButton btnAceptar; 
 	private JButton btnCancelar; 
-	 private JComboBox<String> edificioComboBox;
+	//private JComboBox<String> edificioComboBox;
 	
 	
 	/**
@@ -42,7 +43,7 @@ public class AltaEdificio {
         
         
         textFieldNombreEdificio = new JTextField();
-        textFieldNombreEdificio.setBounds(200, 30, 180, 20);
+        textFieldNombreEdificio.setBounds(200, 31, 180, 20);
         frame.getContentPane().add(textFieldNombreEdificio);
         
      // Etiqueta para la dirección del edificio
@@ -61,10 +62,12 @@ public class AltaEdificio {
         
      
  	 // Combo Box para edificio
-		edificioComboBox = new JComboBox<String>(); // aca no se si hace falta el string 
-		edificioComboBox.setBounds(204, 10, 134, 21); 
-		frame.getContentPane().add(edificioComboBox);
-		
+	/*	edificioComboBox = new JComboBox<String>(); 
+		edificioComboBox.setBounds(141, 109, 134, 21); 
+		frame.getContentPane().add(edificioComboBox);*/
+        /*for (EdificioDTO edificio : this.edificios) {
+			rolComboBox.addItem(edificio.getNombre()); // esta es la opcion para el menu desplegable
+		}*/
         
 		
 		btnAceptar = new JButton("Aceptar");
@@ -76,7 +79,7 @@ public class AltaEdificio {
 	                String nombre = textFieldNombreEdificio.getText();
 	                String direccion = textFieldDireccionEdificio.getText();
 	                
-	                api.cargarEdificio(nombre , direccion);
+	                api.cargarEdificio(nombre , direccion);// me da error, ver en la IApi como esta 
 	                
 					frame.setVisible(false);
 					frame.dispose();

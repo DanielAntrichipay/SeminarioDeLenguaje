@@ -66,9 +66,9 @@ public class AulaDTO {
 	
 	
 	public RecursoDTO obtenerRecurso (String nombreRecurso) {
-		RecusoDTO unRecurso= null;
-		for (RecuroDTO r: listaRecurso) {
-			if (r.getNombreRecurso () == nombreRecurso) {
+		RecursoDTO unRecurso= null;
+		for (RecursoDTO r: listaRecurso) {
+			if (r.getNombre () == nombreRecurso) {
 				unRecurso = r;
 			}
 		}

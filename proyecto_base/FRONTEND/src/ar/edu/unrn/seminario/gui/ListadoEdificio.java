@@ -27,8 +27,8 @@ public class ListadoEdificio {
 
 	private JFrame frame;
 	
-	private JTextField textFieldNombreDelEdificio;
-	private JTextField textFieldDireccionDelEdificio;
+	//private JTextField textFieldNombreDelEdificio;
+	//private JTextField textFieldDireccionDelEdificio;
 	private JButton btnModificar; 
 	private JButton btnEliminar; 
 	private JButton btnSalir; 
@@ -67,7 +67,7 @@ public class ListadoEdificio {
 		modelo = new DefaultTableModel(new Object[][] {}, titulos);
 		
 		// Obtiene la lista de usuarios a mostrar
-		List<EdificioDTO> edificios = api.obtenerEdificios();//esta en la api??
+		List<EdificioDTO> edificios = api.obtenerEdificiosDTO();//esta en la api??
 		// Agrega los edificios en el model
 		for (EdificioDTO e : edificios) {
 				modelo.addRow(new Object[] { e.getNombre(), e.getDireccion() });
@@ -80,13 +80,14 @@ public class ListadoEdificio {
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					int opcionSeleccionada = JOptionPane.showConfirmDialog(null,
-							"Estas seguro que desea modificar el edificio?", JOptionPane.YES_NO_OPTION);
-						if (opcionSeleccionada == JOptionPane.YES_OPTION) {
-							String nombreDelEdificio = (String) table.getModel().getValueAt(table.getSelectedRow(), 0);
+					int opcionSeleccionada = JOptionPane.showConfirmDialog (null,
+							"Estas seguro que desea modificar el edificio?","Confirmación", JOptionPane.YES_NO_OPTION);
+				if (opcionSeleccionada == JOptionPane.YES_OPTION) {
+						String nombreDelEdificio = (String) table.getModel().getValueAt(table.getSelectedRow(), 0);
+						String  nuevoNombre = (String) table.getModel().getValueAt(table.getSelectedRow(), 0);
 
-							api.actualizarEdificio(nombreDelEdificio);//esto tiene que estar en la API
-							actualizarTabla();
+						api.actualizarEdificio(nombreDelEdificio, nuevoNombre);//esto tiene que estar en la API
+						actualizarTabla();
 
 						}
 
@@ -94,12 +95,38 @@ public class ListadoEdificio {
 
 				});	
 		
+		
+		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				 int filaSeleccionada = table.getSelectedRow();
+			        if (filaSeleccionada == -1) {
+			            JOptionPane.showMessageDialog(null, "Seleccione un edificio para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+			            return;
+			        }
+
+			        // Pide confirmación para eliminar el edificio
+			        int opcionSeleccionada = JOptionPane.showConfirmDialog(null, 
+			            "¿Está seguro que desea eliminar el edificio?", 
+			            "Confirmación", JOptionPane.YES_NO_OPTION);
+
+			        if (opcionSeleccionada == JOptionPane.YES_OPTION) {
+			            // Obtiene el nombre del edificio desde la tabla
+			            String nombreDelEdificio = (String) table.getModel().getValueAt(filaSeleccionada, 0);
+
+			            // Llama al método de la API para eliminar el edificio
+			            api.bajaDeEdificio(nombreDelEdificio); 
+
+			            // Actualiza la tabla para reflejar los cambios
+			            actualizarTabla();
+
+			            // Muestra un mensaje confirmando la eliminación
+			            JOptionPane.showMessageDialog(null, "El edificio ha sido eliminado correctamente.");
+			        }
+			    }
+			});
 					
-			}
-				});	
 		
 		btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
@@ -118,7 +145,7 @@ public class ListadoEdificio {
 		pnlBotonesOperaciones.add(btnSalir);
 
 		// Deshabilitar botones que requieren tener una fila seleccionada
-		habilitarBotones(false);
+		habilitarBotones(false) ;}
 	
 
 	private void habilitarBotones(boolean b) {
@@ -143,5 +170,6 @@ public class ListadoEdificio {
 	}
 
 }
+
 
 		
