@@ -1,5 +1,6 @@
 package ar.edu.unrn.seminario.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Edificio {
@@ -10,8 +11,7 @@ public class Edificio {
 	private String direccion;
 	
 	
-	private List<Aula> listaAulas;
-	
+	private List<Aula> listaAulas;	
 	
 	
 	/*-------------------------------- MÉTODOS --------------------------------*/
@@ -75,10 +75,28 @@ public class Edificio {
 		return unAula;
 	}
 	
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public List<Aula> getListaAulas() {
+		return listaAulas;
+	}
+
+	public void setListaAulas(List<Aula> listaAulas) {
+		this.listaAulas = listaAulas;
+	}
+	
 	
 	/*----------------------------- CONSTRUCTORES -----------------------------*/
 	
 	
+
+
 	public Edificio () {
 		
 	}
@@ -87,7 +105,7 @@ public class Edificio {
 		super();
 		this.nombre= unNombre;
 		this.direccion= unaDireccion;
-		
+		listaAulas = new ArrayList <Aula>();
 		
 	
 	
