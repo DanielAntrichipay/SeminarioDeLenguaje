@@ -165,7 +165,7 @@ public class MemoryApi implements IApi {
 		}
 		return null;
 	}
-//--------------------------PRUEBA ROCIO---------------------------------------------
+	//--- AMB AULA
 
 	
 	public void modificarUsuario(String username, String nombre, String email, Integer rol) {
@@ -190,10 +190,6 @@ public class MemoryApi implements IApi {
 	    }
 	}
 
-
-
-//-------------- FIN PRUEBA ROCIO -------------------------	---------
-	//--- AMB AULA
 	@Override
 	public void cargarEdificio (String nombreEdificio, String direccion){
 		
@@ -204,7 +200,7 @@ public class MemoryApi implements IApi {
 				elEdificioExiste = true;
 			}
 		}
-			
+
 		if (!elEdificioExiste) {
 			Edificio nuevoEdificio = new Edificio (nombreEdificio, direccion);
 			this.edificios.add(nuevoEdificio);
