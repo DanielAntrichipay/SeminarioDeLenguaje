@@ -1,7 +1,7 @@
 package ar.edu.unrn.seminario.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+//import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -12,13 +12,13 @@ import ar.edu.unrn.seminario.api.IApi;
 import ar.edu.unrn.seminario.dto.EdificioDTO;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+//import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
+//import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
@@ -35,6 +35,7 @@ public class ListadoEdificio {
 	private JTable table;
 	private JPanel contentPane;
 	DefaultTableModel modelo;
+	IApi api;
 	//private JComboBox<String> edificioComboBox;
 
 
@@ -172,7 +173,8 @@ public class ListadoEdificio {
 		// Obtiene el model del table
 		DefaultTableModel modelo = (DefaultTableModel) table.getModel();
 		// Obtiene la lista de usuarios a mostrar
-		List<EdificioDTO> edificios = api.obtenerEdificios();
+		//List <EdificioDTO> edificios = api.obtenerEdificiosDTO();
+		List<EdificioDTO> edificios = api.obtenerEdificiosDTO();
 		// Resetea el model
 		modelo.setRowCount(0);
 

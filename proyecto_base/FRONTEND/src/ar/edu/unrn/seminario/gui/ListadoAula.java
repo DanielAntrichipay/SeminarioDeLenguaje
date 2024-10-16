@@ -32,7 +32,7 @@ public class ListadoAula {
 	private JTable table;
 	private JPanel contentPane;
 	DefaultTableModel modelo;
-
+	IApi api;
 	/**
 	 * Create the application.
 	 */
@@ -52,7 +52,7 @@ public class ListadoAula {
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 
 		table = new JTable();
-		String[] titulos = { "Numero", "edificio","capacidad","recursos"};
+		String[] titulos = { "NUMERO", "EDIFICIO","CAPACIDAD","RECURSOS"};
 
 		table.addMouseListener(new MouseAdapter() { // esto seria que cuando hago click en un campo activo los botones
 			
@@ -66,7 +66,7 @@ public class ListadoAula {
 		modelo = new DefaultTableModel(new Object[][] {}, titulos);
 		
 		// Obtiene la lista de usuarios a mostrar
-		List<AulaDTO> aulas = api.obtenerAulaDTO();//esta en la api??
+		List<AulaDTO> aulas = api.obtenerTodasLasAulasDTO();//esta en la api??
 		// Agrega los edificios en el model
 		for (AulaDTO a :aulas) {
 				modelo.addRow(new Object[] { a.getNumeroAula(), a.getCapacidad(), a.getEdificio(),a.getListaRecurso() });
@@ -163,7 +163,7 @@ public class ListadoAula {
 		// Obtiene el model del table
 		DefaultTableModel modelo = (DefaultTableModel) table.getModel();
 		// Obtiene la lista de usuarios a mostrar
-		List<AulaDTO> aulas = api.obtenerAulas();
+		List<AulaDTO> aulas = api.obtenerTodasLasAulasDTO();
 		// Resetea el model
 		modelo.setRowCount(0);
 
