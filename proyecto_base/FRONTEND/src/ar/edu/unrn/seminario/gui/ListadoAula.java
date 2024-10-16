@@ -1,7 +1,7 @@
 package ar.edu.unrn.seminario.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+//import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -33,9 +33,8 @@ public class ListadoAula {
 	private JPanel contentPane;
 	DefaultTableModel modelo;
 	IApi api;
-	/**
-	 * Create the application.
-	 */
+	
+	
 	public ListadoAula(IApi api) {
 		frame = new JFrame("Listado de aula");
 		frame.setBounds(100, 100, 450, 300);
@@ -110,27 +109,27 @@ public class ListadoAula {
 			            return;
 			        }
 
-			        // Pide confirmación para eliminar el edificio
+			        
 			        int opcionSeleccionada = JOptionPane.showConfirmDialog(null, 
 			            "¿Está seguro que desea eliminar el edificio?", 
 			            "Confirmación", JOptionPane.YES_NO_OPTION);
 
 			        if (opcionSeleccionada == JOptionPane.YES_OPTION) {
-			            // Obtiene el nombre del edificio desde la tabla
+			            
 			            int numeroAula = (int) table.getModel().getValueAt(filaSeleccionada, 0);
 			            String nombreEdificio =(String)table.getModel().getValueAt(filaSeleccionada, 0);
 
-			            // Llama al método de la API para eliminar el edificio
+			           
 			            api.bajaDeAula(nombreEdificio, numeroAula); 
 
-			            // Actualiza la tabla para reflejar los cambios
+			            
 			            actualizarTabla();
 
-			            // Muestra un mensaje confirmando la eliminación
+			            
 			            JOptionPane.showMessageDialog(null, "El edificio ha sido eliminado correctamente.");
 			        }
 			    }
-			});
+			});  // aca pordria haber una exception
 					
 		
 		btnSalir = new JButton("Salir");
@@ -149,7 +148,7 @@ public class ListadoAula {
 		pnlBotonesOperaciones.add(btnEliminar);
 		pnlBotonesOperaciones.add(btnSalir);
 
-		// Deshabilitar botones que requieren tener una fila seleccionada
+		
 		habilitarBotones(false) ;}
 	
 
