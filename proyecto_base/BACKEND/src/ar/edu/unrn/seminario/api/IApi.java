@@ -36,6 +36,9 @@ public interface IApi {
 
 	void desactivarUsuario(String username); // recuperar el objeto Usuario, implementar el comportamiento de estado.
 	
+	void modificarUsuario(String username, String nombre, String email, Integer integer); // PRUEBA ROCIO
+	
+	void darDeBajaUsuario(String username);  //PRUEBA ROCIO
 	//--- LOGICA DE EDIFICIO.
 	
 	void cargarEdificio (String nombreEdificio, String direccion);

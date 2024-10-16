@@ -158,7 +158,34 @@ public class MemoryApi implements IApi {
 		}
 		return null;
 	}
+//--------------------------PRUEBA ROCIO---------------------------------------------
+
 	
+	public void modificarUsuario(String username, String nombre, String email, Integer rol) {
+	    Usuario user = this.buscarUsuario(username);
+	    if (user != null) {
+	        user.setNombre(nombre);
+	        user.setEmail(email);
+	        Rol nuevoRol = buscarRol(rol);
+	        user.setRol(nuevoRol);
+	    }
+	}
+
+
+	@Override
+	public void darDeBajaUsuario(String username) {
+	    Usuario usuario = buscarUsuario(username); 
+	    if (usuario != null) {
+	        usuarios.remove(usuario);  //lo elimina de la lista...
+	        System.out.println("Usuario " + username + " se ha dado de baja.");
+	    } else {
+	        System.out.println("Usuario no encontrado: " + username);
+	    }
+	}
+
+
+
+//-------------- FIN PRUEBA ROCIO -------------------------	---------
 	//--- AMB AULA
 	@Override
 	public void cargarEdificio (String nombreEdificio, String direccion){
