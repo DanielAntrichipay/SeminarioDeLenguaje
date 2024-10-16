@@ -32,6 +32,12 @@ public class MemoryApi implements IApi {
 		this.roles.add(new Rol(2, "ESTUDIANTE"));
 		this.roles.add(new Rol(3, "INVITADO"));
 		inicializarUsuarios();
+		List <String> nombresDeRecursos = new ArrayList();
+		nombresDeRecursos.add("Ruecurso_1");
+		nombresDeRecursos.add("Ruecurso_2");
+		List <String> descripcionDeRecursos = new ArrayList();
+		descripcionDeRecursos.add("un Recurso");
+		cargarAula (nombresDeRecursos, descripcionDeRecursos, "Edificio_Grande", 9, 30);
 		cargarEdificio("Edificio_Chiquito", "Direccion");
 	}
 	
