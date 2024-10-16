@@ -32,6 +32,7 @@ public class MemoryApi implements IApi {
 		this.roles.add(new Rol(2, "ESTUDIANTE"));
 		this.roles.add(new Rol(3, "INVITADO"));
 		inicializarUsuarios();
+		cargarEdificio("Edificio_Chiquito", "Direccion");
 	}
 	
 	// Inicializa usuarios
