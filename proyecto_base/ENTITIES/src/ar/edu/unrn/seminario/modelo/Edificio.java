@@ -37,6 +37,8 @@ public class Edificio {
 		return existe;
 	}
 	
+	//Cambiar a SET, para no hacer consultas por duplicados
+	
 	public boolean existeAulaEnLista (int unNumeroAula) {
 		boolean existe= false;
 		for (Aula a: listaAulas) {

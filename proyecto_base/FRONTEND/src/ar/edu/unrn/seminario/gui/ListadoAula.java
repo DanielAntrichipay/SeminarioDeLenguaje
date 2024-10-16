@@ -67,6 +67,7 @@ public class ListadoAula {
 		// Obtiene la lista de usuarios a mostrar
 		List<AulaDTO> aulas = api.obtenerTodasLasAulasDTO();//esta en la api??
 		// Agrega los edificios en el model
+		
 		for (AulaDTO a :aulas) {
 				modelo.addRow(new Object[] { a.getNumeroAula(), a.getCapacidad(), a.getEdificio(),a.getListaRecurso() });
 			}

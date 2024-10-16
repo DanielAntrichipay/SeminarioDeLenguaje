@@ -25,6 +25,7 @@ public class VentanaPrincipal extends JFrame {
 	private JPanel contentPane;
 
 	/**
+	 * 
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
