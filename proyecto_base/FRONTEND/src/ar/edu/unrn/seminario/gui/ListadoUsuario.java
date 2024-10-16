@@ -17,6 +17,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.GridLayout;
 
 
 import ar.edu.unrn.seminario.api.IApi;
@@ -113,17 +116,17 @@ public class ListadoUsuario extends JFrame {
 			}
 		});
 		
-		//-------- mis modificaciones --------------
+		//-------- ultimas modificaciones --------------
 		modificarButton = new JButton("Modificar");
+		
 		modificarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int reply = JOptionPane.showConfirmDialog(null,
-						"¿Esta seguro que desea modificar este usuario?", "Confirmar modificacion.",
+				int reply = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea modificar este usuario?", "Confirmar modificacion.",
 						JOptionPane.YES_NO_OPTION);
 				if (reply == JOptionPane.YES_OPTION) {
 		            int selectedRow = table.getSelectedRow(); 
 
-		            if (selectedRow == -1) {
+		            if (selectedRow == -1) { //todavía no se selecciono usuario
 		                JOptionPane.showMessageDialog(null, "Seleccione un usuario a modificar.");
 		                return;
 		            }
@@ -132,21 +135,34 @@ public class ListadoUsuario extends JFrame {
 		            String username = (String) table.getModel().getValueAt(selectedRow, 0); // Columna 0 : nombre usuario  
 		            String nombre = (String) table.getModel().getValueAt(selectedRow, 1);   // Columna 1: nombre
 		            String email = (String) table.getModel().getValueAt(selectedRow, 2);    // Columna 2: email
-		            
 		            //String contrasena = (String) table.getModel().getValueAt(selectedRow, 3); // Columna 3: contraseña
-		            /* Rol rol = (Rol) table.getModel().getValueAt(selectedRow, 5); // Columna : 5 : rol
-*/
+		            
+		            //campos de texto 
+		            JTextField nombreField = new JTextField(nombre);
+		            JTextField emailField = new JTextField(email);
 		            String[] rolesDisponibles = {"ADMI", "ESTUDIANTE", "INVITADO"};
 		            JComboBox<String> comboBoxRol = new JComboBox<>(rolesDisponibles);
 		            
-		            // Dialogo para que el usuario seleccione el rol
-		            int rolSeleccionado = JOptionPane.showConfirmDialog(null, comboBoxRol, "Seleccione el rol",
-		                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		            
-		            if (rolSeleccionado == JOptionPane.OK_OPTION) {
+		            //campos de texto
+		            JPanel panel = new JPanel(new GridLayout(0, 1));
+		            panel.add(new JLabel("Nombre:"));
+		            panel.add(nombreField);
+		            panel.add(new JLabel("Email:"));
+		            panel.add(emailField);
+		            panel.add(new JLabel("Rol:"));
+		            panel.add(comboBoxRol);
+
+		            int reply1 = JOptionPane.showConfirmDialog(null, panel, "Modificar Usuario",
+		                    JOptionPane.OK_CANCEL_OPTION); //elige si aceptar la opcion o no
+		            
+		            if (reply1 == JOptionPane.OK_OPTION) { //si se acepta 
+		                String nombreActual = nombreField.getText().trim();
+		                String emailActual = emailField.getText().trim();
+		                Rol rol = null;
 		                String rolSeleccionadoStr = (String) comboBoxRol.getSelectedItem();
 		                
-		                Rol rol = null;
+		            // Dialogo para que el usuario seleccione el rol
 		                if ("ADMIN".equals(rolSeleccionadoStr)) {
 		                    rol = new Rol(1, "ADMIN"); 
 		                } else if ("ESTUDIANTE".equals(rolSeleccionadoStr)) {
@@ -163,10 +179,10 @@ public class ListadoUsuario extends JFrame {
 
 		            try {
 		                // Llamada a la API
-		                api.modificarUsuario(username, nombre, email, rol); //me falta el metodo modificarUsuario en api
+		                api.modificarUsuario(username, nombre, email, rol.getCodigo()); //me falta el metodo modificarUsuario en api
 		                actualizarTabla();  
 		            } catch (Exception ex) {
-		                JOptionPane.showMessageDialog(null, "Error al modificar el usuario: " + ex.getMessage());
+		                JOptionPane.showMessageDialog(null, "Error al querer modificar el usuario: " + ex.getMessage());
 	                }
 		            }
 		        }
@@ -188,10 +204,10 @@ public class ListadoUsuario extends JFrame {
 		      int reply = JOptionPane.showConfirmDialog(null,
 		            "¿Está seguro que desea dar de baja este usuario?", "Confirmar baja.",
 		            JOptionPane.YES_NO_OPTION);
-		      
-		      if (reply == JOptionPane.YES_OPTION) {
+		      //Llamada a la Api
+		      if (reply == JOptionPane.YES_OPTION) { 
 		         String username = (String) table.getModel().getValueAt(filaSeleccionada, 0);
-		         api.darDeBajaUsuario(username); //me falta el metodo darDeBajaUsuario en api
+		         api.darDeBajaUsuario(username); 
 		         actualizarTabla(); 
 		      }
 		   }
