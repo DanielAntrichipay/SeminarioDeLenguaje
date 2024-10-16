@@ -147,8 +147,8 @@ public class ListadoUsuario extends JFrame {
 		                String rolSeleccionadoStr = (String) comboBoxRol.getSelectedItem();
 		                
 		                Rol rol = null;
-		                if ("ADMI".equals(rolSeleccionadoStr)) {
-		                    rol = new Rol(1, "ADMI"); 
+		                if ("ADMIN".equals(rolSeleccionadoStr)) {
+		                    rol = new Rol(1, "ADMIN"); 
 		                } else if ("ESTUDIANTE".equals(rolSeleccionadoStr)) {
 		                    rol = new Rol(2, "ESTUDIANTE"); 
 		                } else if ("INVITADO".equals(rolSeleccionadoStr)) {
