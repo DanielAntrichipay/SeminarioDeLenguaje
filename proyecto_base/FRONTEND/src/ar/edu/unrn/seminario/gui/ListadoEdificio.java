@@ -114,9 +114,23 @@ public class ListadoEdificio {
 			        if (opcionSeleccionada == JOptionPane.YES_OPTION) {
 			            // Obtiene el nombre del edificio desde la tabla
 			            String nombreDelEdificio = (String) table.getModel().getValueAt(filaSeleccionada, 0);
+			            
+			            
+			            
+			          try {
+			            	
+			         
+			                api.bajaDeEdificio (nombreDelEdificio);
+			                JOptionPane.showMessageDialog(null, "El edificio ha sido eliminado correctamente.");
+			            } catch (Exception ex) {
+			                JOptionPane.showMessageDialog(null, "Error al eliminar el edificio: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			            }
+			        }
+			}
+			});
 
 			            // Llama al método de la API para eliminar el edificio
-			            api.bajaDeEdificio(nombreDelEdificio); 
+			           /*api.bajaDeEdificio(nombreDelEdificio); 
 
 			            // Actualiza la tabla para reflejar los cambios
 			            actualizarTabla();
@@ -125,7 +139,7 @@ public class ListadoEdificio {
 			            JOptionPane.showMessageDialog(null, "El edificio ha sido eliminado correctamente.");
 			        }
 			    }
-			});
+			});*/
 					
 		
 		btnSalir = new JButton("Salir");
