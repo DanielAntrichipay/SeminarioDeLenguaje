@@ -226,11 +226,11 @@ public class MemoryApi implements IApi {
 	// --- AULA ---
 	
 	@Override
-	public void cargarAula (ArrayList <String> NombresDeRecursos, ArrayList <String> descripcionDeRecursos, String nombreEdificio, int numeroDeAula, int capacidadDeAula){
+	public void cargarAula (List <String> nombresDeRecursos, List <String> descripcionDeRecursos, String nombreEdificio, int numeroDeAula, int capacidadDeAula){
 	// Empezar de nuevo
 		for (Edificio unEdificio : this.edificios){
 			if (unEdificio.getNombre() == nombreEdificio && !unEdificio.existeAulaEnLista(numeroDeAula)){
-				Aula nuevaAula = new Aula (numeroDeAula, recursos, unEdificio, capacidadDeAula);
+				Aula nuevaAula = new Aula (numeroDeAula, construirRecursos(nombresDeRecursos, descripcionDeRecursos), unEdificio, capacidadDeAula);
 				unEdificio.agregarAula(nuevaAula);	
 				this.aulas.add(nuevaAula);			 
 			}	
@@ -281,8 +281,8 @@ public class MemoryApi implements IApi {
 	}
 }
 	@Override
-	List<AulaDTO> obtenerTodasLasAulasDTO(){
-		
+	public List<AulaDTO> obtenerTodasLasAulasDTO(){
+		return construirAulasDTO(this.aulas);
 	}
 //------------------------------------------------------------------------------------------------------------
 
@@ -310,6 +310,19 @@ public class MemoryApi implements IApi {
 			unaListaDeRecursosDTO.add(unRecursoDTO);
 		}
 		return unaListaDeRecursosDTO;
-	}	
+	}
+
+	private List<Recurso> construirRecursos (List <String> nombresDeRecursos, List <String> descripcionDeRecursos){
+		List<Recurso> listaDeRecursos = new ArrayList();
+		for (String unNombreRecurso : nombresDeRecursos) {
+			for (String unaDescripcionDeRecurso : descripcionDeRecursos) {
+				Recurso unRecurso = new Recurso(unNombreRecurso, unaDescripcionDeRecurso);
+				listaDeRecursos.add(unRecurso);
+			}
+		}
+		return listaDeRecursos;
+	}
 }
 	
+
+

@@ -53,7 +53,7 @@ public interface IApi {
 	*/
 	//--- lOGICA DE AULA.
 	
-	void cargarAula (ArrayList <String> NombresDeRecursos, ArrayList <String> descripcionDeRecursos, String nombreEdificio, int numeroDeAula, int capacidadDeAula);
+	void cargarAula (List <String> nombresDeRecursos, List <String> descripcionDeRecursos, String nombreEdificio, int numeroDeAula, int capacidadDeAula);
 	
 	void bajaDeAula (String nombreEdificio, int numeroDeAula);
 	
