@@ -317,7 +317,7 @@ public class MemoryApi implements IApi {
 		List<AulaDTO> unaListaDeAulasDTO = new ArrayList();
 		
 		for (Aula unAula : listaDeAulas) {
-			AulaDTO unAulaDTO = new AulaDTO(unAula.getNumeroAula(), contruirEdificioDTO(unAula.getEdificio), unAula.getCapacidad, construirRecursosDTO (unAula.getListaRecursos()));			
+			AulaDTO unAulaDTO = new AulaDTO(unAula.getNumeroAula(), construirEdificioDTO(unAula.getEdificio()), unAula.getCapacidad(), construirRecursosDTO (unAula.getListaRecursos()));			
 			unaListaDeAulasDTO.add(unAulaDTO);
 		}
 		return unaListaDeAulasDTO;
