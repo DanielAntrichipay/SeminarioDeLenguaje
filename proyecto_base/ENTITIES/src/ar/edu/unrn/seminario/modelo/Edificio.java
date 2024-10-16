@@ -8,10 +8,8 @@ public class Edificio {
 	/*------------------------------- ATRIBUTOS -------------------------------*/
 	
 	private String nombre;
-	private String direccion;
-	
-	
-	private List<Aula> listaAulas;	
+	private String direccion;	
+	private List<Aula> listaAulas= new ArrayList <Aula>();	
 	
 	
 	/*-------------------------------- MÉTODOS --------------------------------*/
@@ -105,8 +103,6 @@ public class Edificio {
 		super();
 		this.nombre= unNombre;
 		this.direccion= unaDireccion;
-		listaAulas = new ArrayList <Aula>();
-		
 	
 	
 }

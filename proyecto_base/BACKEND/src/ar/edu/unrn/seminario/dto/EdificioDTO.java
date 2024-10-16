@@ -9,7 +9,7 @@ public class EdificioDTO {
 	
 	private String nombre;
 	private String direccion;
-	private List<AulaDTO> listaAulas;
+	private List<AulaDTO> listaAulas = 	 new ArrayList <AulaDTO> ();
 
 	/*-------------------------------- MÉTODOS --------------------------------*/
 	
@@ -98,8 +98,7 @@ public class EdificioDTO {
 	
 	public EdificioDTO(String unNombre, String unaDireccion) {
 		this.nombre=unNombre;
-		this.direccion= unaDireccion;
-		listaAulas = new ArrayList <AulaDTO> ();
+		this.direccion= unaDireccion;	
 		
 	}
 
