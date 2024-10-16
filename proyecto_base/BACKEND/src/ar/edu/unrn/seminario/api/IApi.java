@@ -40,8 +40,13 @@ public interface IApi {
 	
 	void bajaDeEdificio (String nombreEdificio);
 	
+	void actualizarEdificio (String nombreEdificio, String nuevoNombreEdificio, String nuevaDireccion);
+	
+	/*
 	void actualizarEdificio (String nombreEdificio, String nuevoNombreEdificio);
 	
+	void actualizarEdificio (String nombreEdificio, String nuevaDireccion);
+	*/
 	//--- lOGICA DE AULA.
 	
 	void cargarAula (ArrayList <String> NombresDeRecursos, ArrayList <String> descripcionDeRecursos, String nombreEdificio, int numeroDeAula, int capacidadDeAula);

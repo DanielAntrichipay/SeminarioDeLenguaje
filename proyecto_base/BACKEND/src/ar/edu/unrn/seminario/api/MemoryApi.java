@@ -189,33 +189,40 @@ public class MemoryApi implements IApi {
 	}
 	
 	public List<EdificioDTO> obtenerEdificiosDTO(){
-		
 		List<EdificioDTO> listaEdificiosDTO = new ArrayList<>();
-		List<AulaDTO> listaAulasDTO = new ArrayList<>();
-		List<RecursoDTO> listaRecursosDTO = new ArrayList<>();
-		
 		for (Edificio unEdificio : this.edificios) {
-			EdificioDTO unEdificioDTO = new EdificioDTO (unEdificio.getNombre());
-			for (Aula unAula : unEdificio.obtenerListaAulas()) {
-				for (Recurso unRecurso : unAula.getListaRecursos())
-				AulaDTO unAulaDTO = new AulaDTO ();
-			}
-			
+			listaEdificiosDTO.add(construirEdificioDTO(unEdificio));
 		}
-		
 		return listaEdificiosDTO;
 		
 	}
 	
 	@Override
-	public void actualizarEdificio (String nombreEdificio, String nuevoNombreEdificio){
-		for (Edificio e : this.edificios){
-			if (e.getNombre() == nombreEdificio){
-				e.setNombre(nuevoNombreEdificio);
+	public void actualizarEdificio (String nombreEdificio, String nuevoNombreEdificio, String nuevaDireccion){
+		for (Edificio unEdificio : this.edificios){
+			if (unEdificio.getNombre() == nombreEdificio){
+				unEdificio.setNombre(nuevoNombreEdificio);
+				unEdificio.setDireccion(nuevaDireccion);
 			}
 		}
-	}	
-	
+	}
+	/*@Override
+	public void actualizarEdificio (String nombreEdificio, String nuevaDireccion){
+		for (Edificio unEdificio : this.edificios){
+			if (unEdificio.getNombre() == nombreEdificio){
+				unEdificio.setDireccion(nuevaDireccion);
+			}
+		}
+	}
+	@Override
+	public void actualizarEdificio (String nombreEdificio, String nuevoNombreEdificio){
+		for (Edificio unEdificio : this.edificios){
+			if (unEdificio.getNombre() == nombreEdificio){
+				unEdificio.setNombre(nuevoNombreEdificio);
+			}
+		}
+	}
+	*/
 	// --- AULA ---
 	
 	@Override
@@ -275,13 +282,30 @@ public class MemoryApi implements IApi {
 }
 //------------------------------------------------------------------------------------------------------------
 
-	private List<EdificioDTO> construirEdifioDTO () {
-		List<EdificioDTO> listaEdificiosDTO = new Array()
-	}
-	private List<AulaDTO> construirAulasDTO () {
+	private List<AulaDTO> construirAulasDTO (List <Aula> listaDeAulas) {
+		List<AulaDTO> unaListaDeAulasDTO = new ArrayList();
 		
+		for (Aula unAula : listaDeAulas) {
+			AulaDTO unAulaDTO = new AulaDTO(unAula.getNumeroAula(), contruirEdificioDTO(unAula.getEdificio), unAula.getCapacidad, construirRecursosDTO (unAula.getListaRecursos()));			
+			unaListaDeAulasDTO.add(unAulaDTO);
+		}
+		return unaListaDeAulasDTO;
 	}
-	private List<RecursoDTO> construirRecursoDTO () {
+	
+	private EdificioDTO construirEdificioDTO (Edificio unEdificio) {
+		EdificioDTO unEdificioDTO = new EdificioDTO (unEdificio.getNombre(), unEdificio.getDireccion());
+		unEdificioDTO.setListaAulas(construirAulasDTO(unEdificio.getListaAulas()));
+		return unEdificioDTO;
+	}
+	
+	private List<RecursoDTO> construirRecursosDTO (List <Recurso> listaDeRecurso) {
+		List<RecursoDTO> unaListaDeRecursosDTO = new ArrayList();
 		
-	}
+		for (Recurso unRecurso : listaDeRecurso) {
+			RecursoDTO unRecursoDTO = new RecursoDTO(unRecurso.obtenerNombre(), unRecurso.obtenerDescripcion());
+			unaListaDeRecursosDTO.add(unRecursoDTO);
+		}
+		return unaListaDeRecursosDTO;
+	}	
 }
+	
