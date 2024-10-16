@@ -53,7 +53,7 @@ public class AltaAula {
 	public AltaAula(IApi api) {
 		
 		// Obtengo los edificios
-		this.edificios = api.obtenerEdificios();
+		this.edificios = api.obtenerEdificiosDTO();
 		
 		// Centrar la ventana		
 		
@@ -162,7 +162,9 @@ public class AltaAula {
 			public void actionPerformed(ActionEvent arg0) {			
 				
 				EdificioDTO unEdificio = edificios.get(edificioComboBox.getSelectedIndex());
-				api.cargarAula(nombreRecursos, descripcionRecursos,  unEdificio.getNombre(),textFieldNumeroAula.getText(), textFieldCapacidad.getText());
+				int numAula = Integer.parseInt(textFieldNumeroAula.getText());
+				int capacAula = Integer.parseInt((textFieldCapacidad.getText()));
+				api.cargarAula(nombreRecursos, descripcionRecursos,  unEdificio.getNombre(),numAula, capacAula);
 				JOptionPane.showMessageDialog(null, 
 						"Aula ingresada con exito!", 
 						"Información", 
