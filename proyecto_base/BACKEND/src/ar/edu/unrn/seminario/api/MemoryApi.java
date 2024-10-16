@@ -187,7 +187,7 @@ public class MemoryApi implements IApi {
 			}
 		}
 	}
-	
+	@Override
 	public List<EdificioDTO> obtenerEdificiosDTO(){
 		List<EdificioDTO> listaEdificiosDTO = new ArrayList<>();
 		for (Edificio unEdificio : this.edificios) {
@@ -280,6 +280,10 @@ public class MemoryApi implements IApi {
 		}
 	}
 }
+	@Override
+	List<AulaDTO> obtenerTodasLasAulasDTO(){
+		
+	}
 //------------------------------------------------------------------------------------------------------------
 
 	private List<AulaDTO> construirAulasDTO (List <Aula> listaDeAulas) {

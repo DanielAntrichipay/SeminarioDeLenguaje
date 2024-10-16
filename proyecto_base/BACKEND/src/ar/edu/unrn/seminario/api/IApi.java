@@ -3,6 +3,8 @@ package ar.edu.unrn.seminario.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.edu.unrn.seminario.dto.AulaDTO;
+import ar.edu.unrn.seminario.dto.EdificioDTO;
 import ar.edu.unrn.seminario.dto.RolDTO;
 import ar.edu.unrn.seminario.dto.UsuarioDTO;
 import ar.edu.unrn.seminario.modelo.Recurso;
@@ -42,6 +44,8 @@ public interface IApi {
 	
 	void actualizarEdificio (String nombreEdificio, String nuevoNombreEdificio, String nuevaDireccion);
 	
+	List<EdificioDTO> obtenerEdificiosDTO();
+	
 	/*
 	void actualizarEdificio (String nombreEdificio, String nuevoNombreEdificio);
 	
@@ -58,4 +62,6 @@ public interface IApi {
 	void modificarAula (String nombreEdificio, int numeroDeAula, ArrayList<Recurso> nuevosRecursos);
 	
 	void modificarAula (String nombreEdificio, int numeroDeAula, int nuevoNumeroDeAula);
+
+	List<AulaDTO> obtenerTodasLasAulasDTO();
 }
