@@ -85,8 +85,8 @@ public class ListadoEdificio {
 				if (opcionSeleccionada == JOptionPane.YES_OPTION) {
 						String nombreDelEdificio = (String) table.getModel().getValueAt(table.getSelectedRow(), 0);
 						String  nuevoNombre = (String) table.getModel().getValueAt(table.getSelectedRow(), 0);
-
-						api.actualizarEdificio(nombreDelEdificio, nuevoNombre);//esto tiene que estar en la API
+						String  direccion = (String) table.getModel().getValueAt(table.getSelectedRow(), 0);
+						api.actualizarEdificio(nombreDelEdificio, nuevoNombre, direccion);//esto tiene que estar en la API
 						actualizarTabla();
 
 						}

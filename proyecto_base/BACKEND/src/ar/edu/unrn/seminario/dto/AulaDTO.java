@@ -51,7 +51,7 @@ public class AulaDTO {
 		
 	
 	public void agregarRecurso (RecursoDTO recurso) {		
-		if (! existeRecurso(recurso)) {
+		if (! existeRecurso(recurso.obtenerNombre())) {
 			listaRecurso.add (recurso);
 		}
 		
@@ -59,7 +59,7 @@ public class AulaDTO {
 	
 	public void eliminarRecurso (RecursoDTO recurso) {
 		
-		if (existeRecurso (recurso)) {
+		if (existeRecurso (recurso.obtenerNombre())) {
 			listaRecurso.remove(recurso);
 		}
 	}
@@ -68,7 +68,7 @@ public class AulaDTO {
 	public RecursoDTO obtenerRecurso (String nombreRecurso) {
 		RecursoDTO unRecurso= null;
 		for (RecursoDTO r: listaRecurso) {
-			if (r.getNombre () == nombreRecurso) {
+			if (r.obtenerNombre () == nombreRecurso) {
 				unRecurso = r;
 			}
 		}

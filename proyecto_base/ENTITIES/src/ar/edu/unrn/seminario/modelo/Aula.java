@@ -23,6 +23,23 @@ public class Aula {
 		this.numeroAula = numeroAula;
 	} 
 	
+	public Edificio getEdificio() {
+		return edificio;
+	}
+
+	public void setEdificio(Edificio edificio) {
+		this.edificio = edificio;
+	}
+
+	public int getCapacidad() {
+		return capacidad;
+	}
+
+	public void setCapacidad(int capacidad) {
+		this.capacidad = capacidad;
+	}
+
+	
 	public List<Recurso> getListaRecursos() {
 		return listaRecursos;
 	}
