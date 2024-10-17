@@ -15,19 +15,19 @@ import ar.edu.unrn.seminario.dto.RecursoDTO;
 import ar.edu.unrn.seminario.modelo.Aula;
 import ar.edu.unrn.seminario.dto.AulaDTO;
 
-//Implementa la fachada, se llama memory api porque almaceno en array list, viven en la memoria.
 public class MemoryApi implements IApi {
+	
+	/*------------------------------------------------------ ATRIBUTOS ------------------------------------------------------*/
 	
 	private List<Rol> roles = new ArrayList();
 	private List<Usuario> usuarios = new ArrayList<>();
 	
 	private List<Aula> aulas = new ArrayList<>();
 	private List<Edificio> edificios = new ArrayList<>();
+	
+	/*------------------------------------------------------ CONSTRUCTORES ------------------------------------------------------*/
 
 	public MemoryApi() {
-
-		// Inicializa valores, acá los roles, puede no hacer nada
-		//Simula tener los roles precargados
 		this.roles.add(new Rol(1, "ADMIN"));
 		this.roles.add(new Rol(2, "ESTUDIANTE"));
 		this.roles.add(new Rol(3, "INVITADO"));
@@ -37,21 +37,21 @@ public class MemoryApi implements IApi {
 		nombresDeRecursos.add("Ruecurso_2");
 		List <String> descripcionDeRecursos = new ArrayList();
 		descripcionDeRecursos.add("un Recurso");
-		cargarAula (nombresDeRecursos, descripcionDeRecursos, "Edificio_Grande", 9, 30);
+		cargarAula (nombresDeRecursos, descripcionDeRecursos, "Edificio_Chiquito", 9, 30);
 		cargarEdificio("Edificio_Chiquito", "Direccion");
 	}
 	
-	// Inicializa usuarios
+	/*------------------------------------------------------ MÉTODOS ------------------------------------------------------*/
+	
+	//-- ABM USUARIOS ----------------
+	
 	private void inicializarUsuarios() {
 		registrarUsuario("admin", "1234", "admin@unrn.edu.ar", "Admin", 1);
 		registrarUsuario("ldifabio", "4", "ldifabio@unrn.edu.ar", "Lucas", 2);
 		registrarUsuario("bjgorosito", "1234", "bjgorosito@unrn.edu.ar", "Bruno", 3);
 
 	}
-
-		// Sobreescribe registrar usuario de la API, porque la estoy implementado.
-	//le doy comportamiento.
-	//Creamos un usuario lo cargamos a la lista.
+	
 	@Override
 	public void registrarUsuario(String username, String password, String email, String nombre, Integer rol) {
 
@@ -165,8 +165,6 @@ public class MemoryApi implements IApi {
 		}
 		return null;
 	}
-	//--- AMB AULA
-
 	
 	public void modificarUsuario(String username, String nombre, String email, Integer rol) {
 	    Usuario user = this.buscarUsuario(username);
@@ -189,7 +187,11 @@ public class MemoryApi implements IApi {
 	        System.out.println("Usuario no encontrado: " + username);
 	    }
 	}
-
+	
+	/*-- ABM AULA ----------------*/
+	
+	//EDIFICIO:
+	
 	@Override
 	public void cargarEdificio (String nombreEdificio, String direccion){
 		
@@ -200,7 +202,6 @@ public class MemoryApi implements IApi {
 				elEdificioExiste = true;
 			}
 		}
-
 		if (!elEdificioExiste) {
 			Edificio nuevoEdificio = new Edificio (nombreEdificio, direccion);
 			this.edificios.add(nuevoEdificio);
@@ -236,7 +237,9 @@ public class MemoryApi implements IApi {
 			}
 		}
 	}
-	/*@Override
+	/*
+	
+	@Override
 	public void actualizarEdificio (String nombreEdificio, String nuevaDireccion){
 		for (Edificio unEdificio : this.edificios){
 			if (unEdificio.getNombre() == nombreEdificio){
@@ -253,7 +256,8 @@ public class MemoryApi implements IApi {
 		}
 	}
 	*/
-	// --- AULA ---
+	
+	// AULA:
 	
 	@Override
 	public void cargarAula (List <String> nombresDeRecursos, List <String> descripcionDeRecursos, String nombreEdificio, int numeroDeAula, int capacidadDeAula){
@@ -312,36 +316,60 @@ public class MemoryApi implements IApi {
 }
 	@Override
 	public List<AulaDTO> obtenerTodasLasAulasDTO(){
-		return construirAulasDTO(this.aulas);
+		return construirAulaDTO(this.aulas);
 	}
-//------------------------------------------------------------------------------------------------------------
-
-	private List<AulaDTO> construirAulasDTO (List <Aula> listaDeAulas) {
-		List<AulaDTO> unaListaDeAulasDTO = new ArrayList();
+ 
+	/*------------------------------------------------------ MÉTODOS INTERNOS ------------------------------------------------------*/
+	
+	private AulaDTO construirAulaDTO (Aula unAula) {
+		AulaDTO unAulaDTO = new AulaDTO(unAula.getNumeroAula(), construirEdificioDTO(unAula.getEdificio()), unAula.getCapacidad(), construirRecursoDTO (unAula.getListaRecursos()));
+		return unAulaDTO;
+		//return new AulaDTO(unAula.getNumeroAula(), construirEdificioDTO(unAula.getEdificio()), unAula.getCapacidad(), construirRecursosDTO (unAula.getListaRecursos()));
+		//SE PUEDE??
+	}
+	private List<AulaDTO> construirAulaDTO (List <Aula> listaDeAulas) {
 		
+		List<AulaDTO> unaListaDeAulasDTO = new ArrayList();
 		for (Aula unAula : listaDeAulas) {
-			AulaDTO unAulaDTO = new AulaDTO(unAula.getNumeroAula(), construirEdificioDTO(unAula.getEdificio()), unAula.getCapacidad(), construirRecursosDTO (unAula.getListaRecursos()));			
-			unaListaDeAulasDTO.add(unAulaDTO);
+			unaListaDeAulasDTO.add(construirAulaDTO (unAula));
 		}
 		return unaListaDeAulasDTO;
 	}
 	
+	
+	
 	private EdificioDTO construirEdificioDTO (Edificio unEdificio) {
-		EdificioDTO unEdificioDTO = new EdificioDTO (unEdificio.getNombre(), unEdificio.getDireccion());
-		unEdificioDTO.setListaAulas(construirAulasDTO(unEdificio.getListaAulas()));
+		EdificioDTO unEdificioDTO = new EdificioDTO (unEdificio.getNombre(), unEdificio.getDireccion(), construirAulaDTO(unEdificio.getListaAulas()));
 		return unEdificioDTO;
+		// return new EdificioDTO (unEdificio.getNombre(), unEdificio.getDireccion(), construirAulasDTO(unEdificio.getListaAulas())) - SE PUEDE??
+	}
+	private List<EdificioDTO> contruirEdficioDTO(List<Edificio> ListaDeEdificios){
+		
+		List<EdificioDTO> listaEdificiosDTO = new ArrayList();
+		for (Edificio unEdificio : ListaDeEdificios) {
+			listaEdificiosDTO.add(construirEdificioDTO (unEdificio));
+		}
+		return listaEdificiosDTO;
 	}
 	
-	private List<RecursoDTO> construirRecursosDTO (List <Recurso> listaDeRecurso) {
-		List<RecursoDTO> unaListaDeRecursosDTO = new ArrayList();
+	
+	
+	private RecursoDTO construirRecursoDTO (Recurso unRecurso) {
+		RecursoDTO unRecursoDTO = new RecursoDTO (unRecurso.obtenerNombre(), unRecurso.obtenerDescripcion());
+		return unRecursoDTO;
+		//return new RecursoDTO (unRecurso.obtenerNombre(), unRecurso.obtenerDescripcion()); //SE PUEDE??
+	}
+	private List<RecursoDTO> construirRecursoDTO (List <Recurso> listaDeRecurso) {
 		
+		List<RecursoDTO> unaListaDeRecursosDTO = new ArrayList();
 		for (Recurso unRecurso : listaDeRecurso) {
-			RecursoDTO unRecursoDTO = new RecursoDTO(unRecurso.obtenerNombre(), unRecurso.obtenerDescripcion());
-			unaListaDeRecursosDTO.add(unRecursoDTO);
+			unaListaDeRecursosDTO.add(construirRecursoDTO (unRecurso));
 		}
 		return unaListaDeRecursosDTO;
 	}
 
+	
+	
 	private List<Recurso> construirRecursos (List <String> nombresDeRecursos, List <String> descripcionDeRecursos){
 		List<Recurso> listaDeRecursos = new ArrayList();
 		for (String unNombreRecurso : nombresDeRecursos) {
