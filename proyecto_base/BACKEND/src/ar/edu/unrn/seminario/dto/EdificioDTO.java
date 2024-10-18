@@ -101,5 +101,12 @@ public class EdificioDTO {
 		this.direccion= unaDireccion;	
 		
 	}
+	
+	public EdificioDTO(String unNombre, String unaDireccion, List<AulaDTO> unaListaAulaDTO) {
+		this.nombre=unNombre;
+		this.direccion= unaDireccion;	
+		this.listaAulas = unaListaAulaDTO;
+		
+	}
 
 }
