@@ -149,6 +149,7 @@ public class VentanaPrincipal extends JFrame {
 		salirMenuItem.addActionListener(new ActionListener(){
 		public void actionPerformed (ActionEvent e) {
 				System.exit(0); // Cerrar la aplicación
+				
 	
 
 

@@ -63,6 +63,7 @@ public class Rol {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		
 		Rol other = (Rol) obj;
 		if (codigo == null) {
 			if (other.codigo != null)

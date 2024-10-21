@@ -152,7 +152,7 @@ public class AltaAula {
 						"Mensaje", 
 						JOptionPane.INFORMATION_MESSAGE);
 				frame.setVisible(false);
-				frame.dispose();
+				
 			}
 		});
 		
@@ -170,7 +170,7 @@ public class AltaAula {
 						"Información", 
 						JOptionPane.INFORMATION_MESSAGE);
 				frame.setVisible(false);
-				frame.dispose();
+				
 				
 			}
 		});
@@ -182,7 +182,7 @@ public class AltaAula {
 		btnCancelar.addActionListener(new ActionListener(){
 			public void actionPerformed (ActionEvent e) {
 				frame.setVisible(false);
-				frame.dispose();
+				
 			}
 		});
 		btnCancelar.setBounds(253, 232, 85, 21);
