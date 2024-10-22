@@ -27,8 +27,7 @@ public class ListadoEdificio {
 
 	private JFrame frame;
 	
-	//private JTextField textFieldNombreDelEdificio;
-	//private JTextField textFieldDireccionDelEdificio;
+
 	private JButton btnModificar; 
 	private JButton btnEliminar; 
 	private JButton btnSalir; 
@@ -56,11 +55,11 @@ public class ListadoEdificio {
 		table = new JTable();
 		String[] titulos = { "NOMBRE", "DIRECCION"};
 
-		table.addMouseListener(new MouseAdapter() { // esto seria que cuando hago click en un campo activo los botones
+		table.addMouseListener(new MouseAdapter() { 
 			
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// Habilitar botones
+				
 				habilitarBotones(true);
 
 			}
