@@ -39,10 +39,14 @@ public class ListadoEdificio {
 
 
 	public ListadoEdificio(IApi api) {
+		
+		this.api = api;
+		
 		frame = new JFrame("Listado de edificios");
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		frame.setVisible(true);
+
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -66,12 +70,29 @@ public class ListadoEdificio {
 		});
 		modelo = new DefaultTableModel(new Object[][] {}, titulos);
 		
-		// Obtiene la lista de usuarios a mostrar
+		/*// Obtiene la lista de usuarios a mostrar
 		List<EdificioDTO> edificios = api.obtenerEdificiosDTO();//esta en la api??
 		// Agrega los edificios en el model
 		for (EdificioDTO e : edificios) {
 				modelo.addRow(new Object[] { e.getNombre(), e.getDireccion() });
 			}
+
+		table.setModel(modelo);
+
+		scrollPane.setViewportView(table);*/
+		
+		try {
+		    List<EdificioDTO> edificios = api.obtenerEdificiosDTO(); // Podría lanzar una excepción
+		    // Agrega los edificios en el modelo
+		    for (EdificioDTO e : edificios) {
+		        modelo.addRow(new Object[] { e.getNombre(), e.getDireccion() });
+		    }
+		} catch (Exception ex) {
+		    JOptionPane.showMessageDialog(null, "Error al obtener los edificios: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		} finally {
+		    // Aquí podrías colocar acciones que desees ejecutar siempre, incluso si ocurre un error.
+		    
+		}
 
 		table.setModel(modelo);
 
@@ -83,17 +104,25 @@ public class ListadoEdificio {
 					int opcionSeleccionada = JOptionPane.showConfirmDialog (null,
 							"Estas seguro que desea modificar el edificio?","Confirmación", JOptionPane.YES_NO_OPTION);
 				if (opcionSeleccionada == JOptionPane.YES_OPTION) {
-						String nombreDelEdificio = (String) table.getModel().getValueAt(table.getSelectedRow(), 0);
-						String  nuevoNombre = (String) table.getModel().getValueAt(table.getSelectedRow(), 0);
-						String  direccion = (String) table.getModel().getValueAt(table.getSelectedRow(), 0);
-						api.actualizarEdificio(nombreDelEdificio, nuevoNombre, direccion);//esto tiene que estar en la API
-						actualizarTabla();
-
-						}
-
-					}
-
-				});	
+		            try {
+		                String nombreDelEdificio = (String) table.getModel().getValueAt(table.getSelectedRow(), 0);
+		                String nuevoNombre = (String) table.getModel().getValueAt(table.getSelectedRow(), 0);
+		                String direccion = (String) table.getModel().getValueAt(table.getSelectedRow(), 1);
+		                
+		                // Podría lanzar una excepción si la API falla
+		                api.actualizarEdificio(nombreDelEdificio, nuevoNombre, direccion); 
+		                
+		                actualizarTabla(); // Actualiza la tabla después de modificar
+		            } catch (ArrayIndexOutOfBoundsException ex) {
+		                JOptionPane.showMessageDialog(null, "Debe seleccionar un edificio para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+		            } catch (Exception ex) {
+		                JOptionPane.showMessageDialog(null, "Error al modificar el edificio: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		            } finally {
+		          
+		            }
+		        }
+		    }
+		});
 		
 		
 		
