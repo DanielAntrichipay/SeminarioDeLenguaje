@@ -29,17 +29,22 @@ public class MemoryApi implements IApi {
 	/*------------------------------------------------------ CONSTRUCTORES ------------------------------------------------------*/
 
 	public MemoryApi() {
+		
+		try {
 		this.roles.add(new Rol(1, "ADMIN"));
-		this.roles.add(new Rol(2, "ESTUDIANTE"));
-		this.roles.add(new Rol(3, "INVITADO"));
-		inicializarUsuarios();
-		List <String> nombresDeRecursos = new ArrayList();
-		nombresDeRecursos.add("Ruecurso_1");
-		nombresDeRecursos.add("Ruecurso_2");
-		List <String> descripcionDeRecursos = new ArrayList();
-		descripcionDeRecursos.add("un Recurso");
-		cargarAula (nombresDeRecursos, descripcionDeRecursos, "Edificio_Chiquito", 9, 30);
-		cargarEdificio("Edificio_Chiquito", "Direccion");
+			this.roles.add(new Rol(2, "ESTUDIANTE"));
+			this.roles.add(new Rol(3, "INVITADO"));
+			inicializarUsuarios();
+			List <String> nombresDeRecursos = new ArrayList();
+			nombresDeRecursos.add("Ruecurso_1");
+			nombresDeRecursos.add("Ruecurso_2");
+			List <String> descripcionDeRecursos = new ArrayList();
+			descripcionDeRecursos.add("un Recurso");
+			cargarAula (nombresDeRecursos, descripcionDeRecursos, "Edificio_Chiquito", 9, 30);
+			cargarEdificio("Edificio_Chiquito", "Direccion");
+		} catch (DataEmptyException execepcion){
+			System.out.println ("Al estar harcodeado no deberia saltar esta excepción, pero de todas formas hay que capturarla");
+		}
 	}
 	
 	/*------------------------------------------------------ MÉTODOS ------------------------------------------------------*/
