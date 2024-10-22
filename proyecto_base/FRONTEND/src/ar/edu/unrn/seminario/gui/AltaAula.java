@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 
 import ar.edu.unrn.seminario.api.IApi;
 import ar.edu.unrn.seminario.dto.RolDTO;
+import ar.edu.unrn.seminario.exception.DataEmptyException;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -35,11 +36,11 @@ import ar.edu.unrn.seminario.dto.RecursoDTO;
 public class AltaAula {
 
 	private JFrame frame;	// Ventana principal
-	private JTextField textFieldNumeroAula; // Campo de texto para el número de aula
-	private JTextField textFieldCapacidad; //Campo de texto para la capacidad del aula
-	private JTextField textFieldNombreRecurso; //Campo de texto para el nombre del recurso
-	private JTextArea textAreaRecurso; //TextArea para la descripcion del recurso
-	private JComboBox edificioComboBox; // ComboBox para el nombre de los edificios
+	private JTextField txtNumeroAula; // Campo de texto para el número de aula
+	private JTextField txtCapacidad; //Campo de texto para la capacidad del aula
+	private JTextField txtNombreRecurso; //Campo de texto para el nombre del recurso
+	private JTextArea txtDescripcionRecurso; //TextArea para la descripcion del recurso
+	private JComboBox <String>  edificioComboBox; // ComboBox para obtener el nombre de los edificios
 	private JButton btnAceptar; // Boton aceptar
 	private JButton btnCancelar; // Boton cancelar
 	
@@ -71,10 +72,10 @@ public class AltaAula {
 		frame.getContentPane().add(lblNewLabel);
 		
 		// Campo de texto para el número de aula
-		textFieldNumeroAula = new JTextField();
-		textFieldNumeroAula.setBounds(204, 41, 134, 19);
-		frame.getContentPane().add(textFieldNumeroAula);
-		textFieldNumeroAula.setColumns(10);
+		txtNumeroAula = new JTextField();
+		txtNumeroAula.setBounds(204, 41, 134, 19);
+		frame.getContentPane().add(txtNumeroAula);
+		txtNumeroAula.setColumns(10);
 		
 		// Label para Edificio
 		
@@ -98,10 +99,10 @@ public class AltaAula {
 		frame.getContentPane().add(lblCapacidad);
 		
 		// Campo de texto para capacidad
-		textFieldCapacidad = new JTextField();
-		textFieldCapacidad.setColumns(10);
-		textFieldCapacidad.setBounds(204, 74, 134, 19);
-		frame.getContentPane().add(textFieldCapacidad);
+		txtCapacidad = new JTextField();
+		txtCapacidad.setColumns(10);
+		txtCapacidad.setBounds(204, 74, 134, 19);
+		frame.getContentPane().add(txtCapacidad);
 		
 		// Label para Recurso
 		JLabel lblRecurso = new JLabel("Nombre del recurso");
@@ -109,10 +110,10 @@ public class AltaAula {
 		frame.getContentPane().add(lblRecurso);	
 		
 		// Campo de texto para el nombre del recurso
-		textFieldNombreRecurso = new JTextField();
-		textFieldNombreRecurso.setColumns(10);
-		textFieldNombreRecurso.setBounds(206, 108, 132, 19);
-		frame.getContentPane().add(textFieldNombreRecurso);
+		txtNombreRecurso = new JTextField();
+		txtNombreRecurso.setColumns(10);
+		txtNombreRecurso.setBounds(206, 108, 132, 19);
+		frame.getContentPane().add(txtNombreRecurso);
 		
 		// Label para descripcion del recurso
 		JLabel lblDescripcinDelRecurso = new JLabel("Descripción del recurso");
@@ -120,9 +121,9 @@ public class AltaAula {
 		frame.getContentPane().add(lblDescripcinDelRecurso);
 		
 		// Text Area para descripcion del recurso
-		textAreaRecurso = new JTextArea();
-		textAreaRecurso.setBounds(206, 137, 132, 43);
-		frame.getContentPane().add(textAreaRecurso);
+		txtDescripcionRecurso = new JTextArea();
+		txtDescripcionRecurso.setBounds(206, 137, 132, 43);
+		frame.getContentPane().add();
 		
 		// Scroll Bar para Recurso
 		JScrollBar scrollBar = new JScrollBar();
@@ -130,46 +131,81 @@ public class AltaAula {
 		frame.getContentPane().add(scrollBar);
 		
 		// Boton para añadir Recursos
-		JButton btnAadirRecursos = new JButton("Añadir más recursos");
+		JButton btnAadirRecursos = new JButton("Añadir recurso");
 		btnAadirRecursos.setBounds(206, 201, 133, 21);
 		frame.getContentPane().add(btnAadirRecursos);
 		
 		// Listener para el boton añadir más recursos
 		btnAadirRecursos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nombreDelRecurso = textFieldNombreRecurso.getText();
-				String descripcionDelRecurso = textAreaRecurso.getText();
+				String nombreDelRecurso = txtNombreRecurso.getText();
+				String descripcionDelRecurso = txtDescripcionRecurso.getText();
 				
+				try {		
 				nombreRecursos.add(nombreDelRecurso);
 				descripcionRecursos.add(descripcionDelRecurso);
 				
-						
-				textFieldNombreRecurso.setText("");
-				textAreaRecurso.setText("");
+				txtNombreRecurso.setText("");
+				txtDescripcionRecurso.setText("");
 				
 				JOptionPane.showMessageDialog(null, 
-						"El recurso " + textFieldNombreRecurso.getText() + " ha sido añadido", 
-						"Mensaje", 
+						"El recurso ha sido añadido con éxito", 
+						"Información", 
 						JOptionPane.INFORMATION_MESSAGE);
-				frame.setVisible(false);
+				
+				}
+				catch (DataEmptyException dataException) {
+					JOptionPane.showMessageDialog(null, 
+							"Por favor, complete todos los campos", 
+							"Precaución", 
+							JOptionPane.WARNING_MESSAGE);
+				}				
+				
 				
 			}
 		});
 		
 		// Creación del botón aceptar y del listener
 		btnAceptar = new JButton("Aceptar");
+		
 		btnAceptar.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent arg0) {			
 				
 				EdificioDTO unEdificio = edificios.get(edificioComboBox.getSelectedIndex());
-				int numAula = Integer.parseInt(textFieldNumeroAula.getText());
-				int capacAula = Integer.parseInt((textFieldCapacidad.getText()));
+				
+				try {
+				int numAula = Integer.parseInt(txtNumeroAula.getText());
+				int capacAula = Integer.parseInt((txtCapacidad.getText()));
+				
+				//
+				
 				api.cargarAula(nombreRecursos, descripcionRecursos,  unEdificio.getNombre(),numAula, capacAula);
+				
 				JOptionPane.showMessageDialog(null, 
 						"Aula ingresada con exito!", 
 						"Información", 
 						JOptionPane.INFORMATION_MESSAGE);
 				frame.setVisible(false);
+				
+				}
+				
+				catch (DataEmptyException dataException) {
+					JOptionPane.showMessageDialog(null, 
+							"Por favor, complete todos los campos", 
+							"Precaución", 
+							JOptionPane.WARNING_MESSAGE);
+				}
+				catch (NumberFormatException numberException) {
+					
+					JOptionPane.showMessageDialog(null, 
+							"El dato ingresado en el número de aula o la capacidad debe ser un número", 
+							"Información", 
+							JOptionPane.WARNING_MESSAGE);
+					
+				}			
+				
+				
 				
 				
 			}
