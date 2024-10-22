@@ -1,0 +1,10 @@
+
+22/10/24
+de Maria a Pauli:
+Pauli necesito que atrapes la DataEmptyExcepcion en la línea 82 cuando cargas un edificio. Así sale por el front en una ventana el mensaje de que no se puede dejar el nombre o la dirección vacia.
+Finalizado?: 
+
+22/10/2024
+de Dani a Maria:
+En los setters de edificio incluir la DataEmptyExcepcion
+
