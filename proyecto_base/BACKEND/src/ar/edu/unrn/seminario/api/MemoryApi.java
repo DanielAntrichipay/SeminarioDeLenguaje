@@ -5,6 +5,7 @@ import java.util.List;
 
 import ar.edu.unrn.seminario.dto.RolDTO;
 import ar.edu.unrn.seminario.dto.UsuarioDTO;
+import ar.edu.unrn.seminario.exception.DataEmptyException;
 import ar.edu.unrn.seminario.modelo.Rol;
 import ar.edu.unrn.seminario.modelo.Usuario;
 
@@ -193,7 +194,7 @@ public class MemoryApi implements IApi {
 	//EDIFICIO:
 	
 	@Override
-	public void cargarEdificio (String nombreEdificio, String direccion){
+	public void cargarEdificio (String nombreEdificio, String direccion) throws DataEmptyException {
 		
 		boolean elEdificioExiste= false;
 		
@@ -338,7 +339,7 @@ public class MemoryApi implements IApi {
 	
 	
 	
-	private EdificioDTO construirEdificioDTO (Edificio unEdificio) {
+	private EdificioDTO construirEdificioDTO (Edificio unEdificio){
 		EdificioDTO unEdificioDTO = new EdificioDTO (unEdificio.getNombre(), unEdificio.getDireccion(), construirAulaDTO(unEdificio.getListaAulas()));
 		return unEdificioDTO;
 		// return new EdificioDTO (unEdificio.getNombre(), unEdificio.getDireccion(), construirAulasDTO(unEdificio.getListaAulas())) - SE PUEDE??

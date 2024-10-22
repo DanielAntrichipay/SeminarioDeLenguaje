@@ -7,6 +7,7 @@ import ar.edu.unrn.seminario.dto.AulaDTO;
 import ar.edu.unrn.seminario.dto.EdificioDTO;
 import ar.edu.unrn.seminario.dto.RolDTO;
 import ar.edu.unrn.seminario.dto.UsuarioDTO;
+import ar.edu.unrn.seminario.exception.DataEmptyException;
 import ar.edu.unrn.seminario.modelo.Recurso;
 
 //Esto es la fachada
@@ -41,7 +42,7 @@ public interface IApi {
 	void darDeBajaUsuario(String username);  //PRUEBA ROCIO
 	//--- LOGICA DE EDIFICIO.
 	
-	void cargarEdificio (String nombreEdificio, String direccion);
+	void cargarEdificio (String nombreEdificio, String direccion) throws DataEmptyException ;
 	
 	void bajaDeEdificio (String nombreEdificio);
 	
