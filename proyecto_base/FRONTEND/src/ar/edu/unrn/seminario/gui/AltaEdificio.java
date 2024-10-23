@@ -11,8 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import ar.edu.unrn.seminario.api.IApi;
 import ar.edu.unrn.seminario.dto.EdificioDTO;
@@ -25,8 +27,9 @@ public class AltaEdificio {
     private JTextField textFieldDireccionEdificio; // Campo de texto para la dirección del edificio
     private JButton btnAceptar; 
     private JButton btnCancelar; 
-    private JComboBox<String> edificioComboBox; // Cambiado a <String> para evitar advertencias
-    
+    //private JComboBox<String> edificioComboBox; 
+    private JTable tableEdificios;
+    private DefaultTableModel tableModel;
     private List<EdificioDTO> edificios = new ArrayList<>();
     
     public AltaEdificio(IApi api) {
@@ -40,6 +43,9 @@ public class AltaEdificio {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(null);
         frame.setContentPane(contentPane);
+        
+        String[] columnNames = {"Nombre", "Dirección"};
+        tableModel = new DefaultTableModel(columnNames, 0); 
         
         JLabel nombreEdificio = new JLabel("Nombre del edificio");
         nombreEdificio.setBounds(50, 30, 130, 20);
@@ -73,7 +79,7 @@ public class AltaEdificio {
                     api.cargarEdificio(nombre, direccion);
                     JOptionPane.showMessageDialog(null, "Edificio cargado con éxito");
                     edificios = api.obtenerEdificiosDTO();  // Refrescar la lista con la API
-                    actualizarComboBox(); // Método que actualizará el JComboBox
+                    actualizarTabla ();
 
                     frame.dispose(); // Cierra la ventana
                 } catch (DataEmptyException ex) {
@@ -97,22 +103,38 @@ public class AltaEdificio {
         btnCancelar.setBounds(290, 160, 100, 30);
         contentPane.add(btnCancelar);
         
-        // Crear y agregar el JComboBox
-        edificioComboBox = new JComboBox<>();
-        edificioComboBox.setBounds(200, 110, 180, 20);
-        contentPane.add(edificioComboBox);
-        
-        actualizarComboBox(); // Inicializar el JComboBox con los edificios
-
-        frame.setVisible(true); // Mueve esta línea al final
+        frame.setVisible(true);
     }
+        // Crear y agregar el JComboBox
+       // edificioComboBox = new JComboBox<>();
+       // edificioComboBox.setBounds(200, 110, 180, 20);
+      //  contentPane.add(edificioComboBox);
+        
+        //actualizarComboBox(); 
 
-    private void actualizarComboBox() {
-        edificioComboBox.removeAllItems(); // Limpiar el JComboBox antes de llenarlo
-        for (EdificioDTO edificio : edificios) {
-            edificioComboBox.addItem(edificio.getNombre());
-        }
+       //frame.setVisible(true); // Mueve esta línea al final
+   // }
+
+    //private void actualizarComboBox() {
+        //edificioComboBox.removeAllItems(); 
+       // for (EdificioDTO edificio : edificios) {
+            //edificioComboBox.addItem(edificio.getNombre());
+        //}
+        
+        private void actualizarTabla() {
+        	if (tableModel != null) { 
+        		tableModel.setRowCount(0); 
+        	
+            
+            // Agregar los edificios al modelo de la tabla
+        		for (EdificioDTO edificio : edificios) {
+        			tableModel.addRow(new Object[]{edificio.getNombre(), edificio.getDireccion()});
+            }
+        	} else {
+        		System.out.println("Error: tableModel no está inicializado");
+        	}
     }
 }
+
 
 

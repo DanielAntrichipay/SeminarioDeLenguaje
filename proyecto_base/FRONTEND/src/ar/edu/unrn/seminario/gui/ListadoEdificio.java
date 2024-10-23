@@ -37,7 +37,7 @@ public class ListadoEdificio {
     public ListadoEdificio(IApi api) {
         this.api = api;
 
-        // Inicialización del frame
+        
         frame = new JFrame("Listado de edificios");
         frame.setBounds(100, 100, 450, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,7 +54,7 @@ public class ListadoEdificio {
         String[] titulos = { "NOMBRE", "DIRECCION" };
         modelo = new DefaultTableModel(new Object[][] {}, titulos);
 
-        // Llenar tabla con datos
+        
         try {
             List<EdificioDTO> edificios = api.obtenerEdificiosDTO();
             for (EdificioDTO e : edificios) {
