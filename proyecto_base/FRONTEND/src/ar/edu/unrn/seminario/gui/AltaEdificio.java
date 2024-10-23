@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -111,8 +110,8 @@ public class AltaEdificio {
       //  contentPane.add(edificioComboBox);
         
         //actualizarComboBox(); 
-
-       //frame.setVisible(true); // Mueve esta línea al final
+ 
+       //frame.setVisible(true); 
    // }
 
     //private void actualizarComboBox() {
