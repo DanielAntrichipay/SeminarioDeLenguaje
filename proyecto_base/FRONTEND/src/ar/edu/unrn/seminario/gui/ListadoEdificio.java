@@ -1,7 +1,7 @@
 package ar.edu.unrn.seminario.gui;
 
 import java.awt.BorderLayout;
-//import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -12,208 +12,180 @@ import ar.edu.unrn.seminario.api.IApi;
 import ar.edu.unrn.seminario.dto.EdificioDTO;
 
 import javax.swing.JButton;
-//import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-//import javax.swing.JTextField;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
 public class ListadoEdificio {
 
-	private JFrame frame;
-	
+    private JFrame frame;
+    private JButton btnModificar;
+    private JButton btnEliminar;
+    private JButton btnSalir;
+    private JTable table;
+    private JPanel contentPane;
+    private DefaultTableModel modelo;
+    private IApi api;
 
-	private JButton btnModificar; 
-	private JButton btnEliminar; 
-	private JButton btnSalir; 
-	private JTable table;
-	private JPanel contentPane;
-	DefaultTableModel modelo;
-	IApi api;
-	//private JComboBox<String> edificioComboBox;
+    public ListadoEdificio(IApi api) {
+        this.api = api;
 
+        // Inicialización del frame
+        frame = new JFrame("Listado de edificios");
+        frame.setBounds(100, 100, 450, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	public ListadoEdificio(IApi api) {
-		
-		this.api = api;
-		
-		frame = new JFrame("Listado de edificios");
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setLayout(new BorderLayout(0, 0));
+        frame.setContentPane(contentPane);
 
+        JScrollPane scrollPane = new JScrollPane();
+        contentPane.add(scrollPane, BorderLayout.CENTER);
 
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		frame.setContentPane (contentPane);
+        table = new JTable();
+        String[] titulos = { "NOMBRE", "DIRECCION" };
+        modelo = new DefaultTableModel(new Object[][] {}, titulos);
 
-		JScrollPane scrollPane = new JScrollPane();
-		contentPane.add(scrollPane, BorderLayout.CENTER);
+        // Llenar tabla con datos
+        try {
+            List<EdificioDTO> edificios = api.obtenerEdificiosDTO();
+            for (EdificioDTO e : edificios) {
+                modelo.addRow(new Object[] { e.getNombre(), e.getDireccion() });
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener los edificios: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
-		table = new JTable();
-		String[] titulos = { "NOMBRE", "DIRECCION"};
+        table.setModel(modelo);
+        scrollPane.setViewportView(table);
 
-		table.addMouseListener(new MouseAdapter() { 
-			
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
-				habilitarBotones(true);
+        // Listeners para eventos en la tabla
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+                habilitarBotones(true);
+            }
+        });
 
-			}
-		});
-		modelo = new DefaultTableModel(new Object[][] {}, titulos);
-		
-		/*// Obtiene la lista de usuarios a mostrar
-		List<EdificioDTO> edificios = api.obtenerEdificiosDTO();//esta en la api??
-		// Agrega los edificios en el model
-		for (EdificioDTO e : edificios) {
-				modelo.addRow(new Object[] { e.getNombre(), e.getDireccion() });
-			}
+        // Botones
+        btnModificar = new JButton("Modificar");
+        btnModificar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int reply = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea modificar este edificio?", "Confirmar modificación.",
+                        JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.YES_OPTION) {
+                    int selectedRow = table.getSelectedRow();
 
-		table.setModel(modelo);
+                    if (selectedRow == -1) {
+                        JOptionPane.showMessageDialog(null, "Seleccione un edificio a modificar.");
+                        return;
+                    }
 
-		scrollPane.setViewportView(table);*/
-		
-		try {
-		    List<EdificioDTO> edificios = api.obtenerEdificiosDTO(); // Podría lanzar una excepción
-		    // Agrega los edificios en el modelo
-		    for (EdificioDTO e : edificios) {
-		        modelo.addRow(new Object[] { e.getNombre(), e.getDireccion() });
-		    }
-		} catch (Exception ex) {
-		    JOptionPane.showMessageDialog(null, "Error al obtener los edificios: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-		} finally {
-		    // Aquí podrías colocar acciones que desees ejecutar siempre, incluso si ocurre un error.
-		    
-		}
+                    String nombreDelEdificio = (String) table.getModel().getValueAt(selectedRow, 0);
+                    String direccion = (String) table.getModel().getValueAt(selectedRow, 1);
 
-		table.setModel(modelo);
+                    JTextField nombreDelEdificioField = new JTextField(nombreDelEdificio);
+                    JTextField direccionField = new JTextField(direccion);
 
-		scrollPane.setViewportView(table);
+                    JPanel panel = new JPanel(new GridLayout(0, 1));
+                    panel.add(new JLabel("Nombre:"));
+                    panel.add(nombreDelEdificioField);
+                    panel.add(new JLabel("Dirección:"));
+                    panel.add(direccionField);
 
-		btnModificar = new JButton("Modificar");
-		btnModificar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-					int opcionSeleccionada = JOptionPane.showConfirmDialog (null,
-							"Estas seguro que desea modificar el edificio?","Confirmación", JOptionPane.YES_NO_OPTION);
-				if (opcionSeleccionada == JOptionPane.YES_OPTION) {
-		            try {
-		                String nombreDelEdificio = (String) table.getModel().getValueAt(table.getSelectedRow(), 0);
-		                String nuevoNombre = (String) table.getModel().getValueAt(table.getSelectedRow(), 0);
-		                String direccion = (String) table.getModel().getValueAt(table.getSelectedRow(), 1);
-		                
-		                // Podría lanzar una excepción si la API falla
-		                api.actualizarEdificio(nombreDelEdificio, nuevoNombre, direccion); 
-		                
-		                actualizarTabla(); // Actualiza la tabla después de modificar
-		            } catch (ArrayIndexOutOfBoundsException ex) {
-		                JOptionPane.showMessageDialog(null, "Debe seleccionar un edificio para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
-		            } catch (Exception ex) {
-		                JOptionPane.showMessageDialog(null, "Error al modificar el edificio: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-		            } finally {
-		          
-		            }
-		        }
-		    }
-		});
-		
-		
-		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				 int filaSeleccionada = table.getSelectedRow();
-			        if (filaSeleccionada == -1) {
-			            JOptionPane.showMessageDialog(null, "Seleccione un edificio para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
-			            return;
-			        }
+                    int result = JOptionPane.showConfirmDialog(null, panel, "Modificar edificio", JOptionPane.OK_CANCEL_OPTION);
 
-			        // Pide confirmación para eliminar el edificio
-			        int opcionSeleccionada = JOptionPane.showConfirmDialog(null, 
-			            "¿Está seguro que desea eliminar el edificio?", 
-			            "Confirmación", JOptionPane.YES_NO_OPTION);
+                    if (result == JOptionPane.OK_OPTION) {
+                        String nuevoNombre = nombreDelEdificioField.getText().trim();
+                        String nuevaDireccion = direccionField.getText().trim();
 
-			        if (opcionSeleccionada == JOptionPane.YES_OPTION) {
-			            // Obtiene el nombre del edificio desde la tabla
-			            String nombreDelEdificio = (String) table.getModel().getValueAt(filaSeleccionada, 0);
-			            
-			            
-			            
-			          try {
-			            	
-			         
-			                api.bajaDeEdificio (nombreDelEdificio);
-			                JOptionPane.showMessageDialog(null, "El edificio ha sido eliminado correctamente.");
-			            } catch (Exception ex) {
-			                JOptionPane.showMessageDialog(null, "Error al eliminar el edificio: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-			            }
-			        }
-			}
-			});
+                        if (nuevoNombre.isEmpty() || nuevaDireccion.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos.");
+                            return;
+                        }
 
-			            // Llama al método de la API para eliminar el edificio
-			           /*api.bajaDeEdificio(nombreDelEdificio); 
+                        try {
+                            api.actualizarEdificio(nombreDelEdificio, nuevoNombre, nuevaDireccion);
+                            actualizarTabla();
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Error al modificar el edificio: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+            }
+        });
 
-			            // Actualiza la tabla para reflejar los cambios
-			            actualizarTabla();
+        btnEliminar = new JButton("Eliminar");
+        btnEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Seleccione un edificio para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
-			            // Muestra un mensaje confirmando la eliminación
-			            JOptionPane.showMessageDialog(null, "El edificio ha sido eliminado correctamente.");
-			        }
-			    }
-			});*/
-					
-		
-		btnSalir = new JButton("Salir");
-		btnSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				  frame.dispose(); // Cierra la ventana
-			}	
+                int option = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el edificio?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    String nombreDelEdificio = (String) table.getModel().getValueAt(selectedRow, 0);
 
-		});	
-		
-		
-		JPanel pnlBotonesOperaciones = new JPanel();
-		pnlBotonesOperaciones.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		contentPane.add(pnlBotonesOperaciones, BorderLayout.SOUTH);
-		pnlBotonesOperaciones.add(btnModificar);
-		pnlBotonesOperaciones.add(btnEliminar);
-		pnlBotonesOperaciones.add(btnSalir);
+                    try {
+                        api.bajaDeEdificio(nombreDelEdificio);
+                        JOptionPane.showMessageDialog(null, "El edificio ha sido eliminado correctamente.");
+                        actualizarTabla();
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Error al eliminar el edificio: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
 
-		// Deshabilitar botones que requieren tener una fila seleccionada
-		habilitarBotones(false) ;}
-	
+        btnSalir = new JButton("Salir");
+        btnSalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
 
-	private void habilitarBotones(boolean b) {
-		btnModificar.setEnabled(b);
-		btnEliminar.setEnabled(b);
+        JPanel pnlBotonesOperaciones = new JPanel();
+        pnlBotonesOperaciones.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        contentPane.add(pnlBotonesOperaciones, BorderLayout.SOUTH);
+        pnlBotonesOperaciones.add(btnModificar);
+        pnlBotonesOperaciones.add(btnEliminar);
+        pnlBotonesOperaciones.add(btnSalir);
 
-	}
+        // Deshabilitar botones inicialmente
+        habilitarBotones(false);
 
-	private void actualizarTabla() {
-		// Obtiene el model del table
-		DefaultTableModel modelo = (DefaultTableModel) table.getModel();
-		// Obtiene la lista de usuarios a mostrar
-		//List <EdificioDTO> edificios = api.obtenerEdificiosDTO();
-		List<EdificioDTO> edificios = api.obtenerEdificiosDTO();
-		// Resetea el model
-		modelo.setRowCount(0);
+        frame.setVisible(true);
+    }
 
-		// Agrega los usuarios en el model
-		for (EdificioDTO e : edificios) {
-			modelo.addRow(new Object[] { e.getNombre(), e.getDireccion() });
-		}
+    private void habilitarBotones(boolean habilitar) {
+        btnModificar.setEnabled(habilitar);
+        btnEliminar.setEnabled(habilitar);
+    }
 
-	}
+    private void actualizarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+        modelo.setRowCount(0);
 
+        try {
+            List<EdificioDTO> edificios = api.obtenerEdificiosDTO();
+            for (EdificioDTO e : edificios) {
+                modelo.addRow(new Object[] { e.getNombre(), e.getDireccion() });
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la tabla: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }
-
-
-		
