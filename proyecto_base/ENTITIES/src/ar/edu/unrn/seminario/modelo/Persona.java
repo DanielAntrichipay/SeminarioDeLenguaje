@@ -1,7 +1,5 @@
 package ar.edu.unrn.seminario.modelo;
 
-import ar.edu.unrn.seminario.modelo.Usuario;
-
 public abstract class  Persona {
 	/*------------------------------- ATRIBUTOS -------------------------------*/
 	
