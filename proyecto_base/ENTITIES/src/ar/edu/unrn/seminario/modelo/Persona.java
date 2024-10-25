@@ -2,7 +2,7 @@ package ar.edu.unrn.seminario.modelo;
 
 import ar.edu.unrn.seminario.modelo.Usuario;
 
-public class Persona {
+public abstract class  Persona {
 	/*------------------------------- ATRIBUTOS -------------------------------*/
 	
 	private String nombre;
@@ -44,6 +44,3 @@ public class Persona {
 	}
 	
 }
-/*------------------------------- ATRIBUTOS -------------------------------*/
-/*-------------------------------- MÉTODOS --------------------------------*/
-/*----------------------------- CONSTRUCTORES -----------------------------*/
